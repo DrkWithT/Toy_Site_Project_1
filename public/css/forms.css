@@ -1,0 +1,54 @@
+/*
+  forms.css
+  By: Derek Tan
+*/
+
+form.page-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+form.page-form > div.form-item {
+  display: block;
+}
+
+label.form-label {
+  position: relative;
+  left: 0;
+  display: block;
+  padding: 8px 0;
+  font-weight: bold;
+  color: rgb(85, 85, 100);
+}
+
+label.form-label:hover {
+  color: rgb(45, 45, 60);
+}
+
+input.form-field {
+  display: block;
+  margin: 8px;
+  border: 2px solid rgb(50, 45, 45);
+  padding: 6px;
+  font-size: 16pt;
+}
+
+input.form-field:invalid {
+  border: 2px solid #cb3333;
+}
+
+input#submit-btn {
+  display: block;
+  margin-top: 4px;
+  border: none;
+  padding: 8px;
+  background-color: #e58040;
+  font-weight: bold;
+  color: rgb(85, 85, 100);
+}
+
+input#submit-btn:hover {
+  background-color: #efaa7a;
+  color: rgb(50, 45, 45);
+}
