@@ -1,0 +1,11 @@
+# .gitignore
+# By: Derek Tan
+# Course: CSCI 12 at ECC, Fall 2022
+# Project: Final Project (A Poet's Place)
+
+# Ignore .DS_Store
+.DS_Store
+
+# Ignore log directories or files, which may be written by my PHP scripts.
+*.txt
+logs/*.txt

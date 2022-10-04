@@ -1,0 +1,19 @@
+# .gitattributes
+# By: Derek Tan
+# Course: CSCI 12 at ECC, Fall 2022
+# Project: Final Project (A Poet's Place)
+
+text=auto
+
+# Treat Markdown as text.
+docs/*.md text
+
+# Treat HTML, CSS, JS, and PHP as text.
+*.html text
+*.php text
+public/css/*.css text
+public/js/*.js text
+
+# Treat all images as binary.
+public/img/*.jpg binary
+public/img/*.png binary
