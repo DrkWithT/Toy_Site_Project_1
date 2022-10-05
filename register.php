@@ -42,7 +42,7 @@ if (isset($_COOKIE['sessionID']))
         Make a good password containing a mix of lowercase, uppercase, digits, and punctuation. Also, do <strong>NOT</strong> expose personal information in your username, password, or posts.
       </p>
     </section>
-    <!-- Register Form -->
+    <!-- Register Form: TODO: enable submit-btn AFTER fixing gateway to acccept signups! -->
     <section class="description-section">
       <h3 class="section-heading">Register</h3>
       <form id="register-form" class="page-form" method="POST" action="/gateway.php">
@@ -52,7 +52,7 @@ if (isset($_COOKIE['sessionID']))
         <input id="password-field" class="form-field" name="psword1" type="text" minlength="10" maxlength="48" required>
         <label class="form-label" for="pwconfirm-field">Confirm Password</label>
         <input id="pwconfirm-field" class="form-field" name="psword2" type="text" minlength="10" maxlength="48" required>
-        <input id="submit-btn" type="submit" value="Submit">
+        <input id="submit-btn" type="submit" value="Submit" disabled>
       </form>
     </section>
   </main>
