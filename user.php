@@ -1,18 +1,12 @@
 <?php
 /**
- * A helper function for redirecting to another page.
+ * user.php
+ * Services a generic user's home page.
+ * Derek Tan
  */
-function redirectToPage(string $page)
-{
-  $temp = "";
 
-  if (strlen($page) > 0)
-    $temp = $page;
-  else
-    $temp = "homepage.html";
-
-  header("Location: http://localhost:3000/" . $temp);
-}
+/* Imports */
+use function Util\redirectToPage;
 
 if (!isset($_COOKIE['sessionID']))
   redirectToPage(""); // redirect all visitors to homepage

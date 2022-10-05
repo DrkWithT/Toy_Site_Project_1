@@ -5,6 +5,7 @@
 * Derek Tan
 */
 
+namespace Util; // Declare a module for basic utility functions.
 /**
  * A helper function for checking a username with a password before any further action.
  */
@@ -50,6 +51,7 @@ else
 
 exit(0);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

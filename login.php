@@ -1,23 +1,12 @@
 <?php
 /**
  * login.php
+ * Services login for users.
  * Derek Tan
  */
 
-/**
- * A helper function for redirecting to another page.
- */
-function redirectToPage(string $page)
-{
-  $temp = "";
-
-  if (strlen($page) > 0)
-    $temp = $page;
-  else
-    $temp = "homepage.html";
-
-  header("Location: http://localhost:3000/" . $temp);
-}
+/* Imports */
+use function Util\redirectToPage;
 
 // redirect logged in users to their pages
 if (isset($_COOKIE['sessionID']))
@@ -75,7 +64,7 @@ if (isset($_COOKIE['sessionID']))
           </form>
         </div>
         <div>
-          <img src="../public/img/noble_bookshelf_flickr.png">
+          <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
         </div>
       </div>
     </section>

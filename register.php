@@ -1,23 +1,12 @@
 <?php
 /**
  * register.php
+ * Services registration for users.
  * Derek Tan
  */
 
-/**
- * A helper function for redirecting to another page.
- */
-function redirectToPage(string $page)
-{
-  $temp = "";
-
-  if (strlen($page) > 0)
-    $temp = $page;
-  else
-    $temp = "homepage.html";
-
-  header("Location: http://localhost:3000/" . $temp);
-}
+/* Imports */
+use function Util\redirectToPage;
 
 if (isset($_COOKIE['sessionID']))
 {
@@ -32,8 +21,8 @@ if (isset($_COOKIE['sessionID']))
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../public/css/index.css" rel="stylesheet">
-  <link href="../public/css/forms.css" rel="stylesheet">
+  <link href="./public/css/index.css" rel="stylesheet">
+  <link href="./public/css/forms.css" rel="stylesheet">
   <title>A Poet's Place - Register</title>
 </head>
 <body>
@@ -48,9 +37,9 @@ if (isset($_COOKIE['sessionID']))
   <main id="scrollable">
     <!-- Info -->
     <section class="description-section">
-      <h3 class="section-heading">Tips</h3>
+      <h3 class="section-heading">Before You Sign Up&colon;</h3>
       <p>
-        Tips: Make a good password containing a mix of lowercase, uppercase, digits, and punctuation. Also, do <strong>NOT</strong> expose personal information in your username, password, or posts.
+        Make a good password containing a mix of lowercase, uppercase, digits, and punctuation. Also, do <strong>NOT</strong> expose personal information in your username, password, or posts.
       </p>
     </section>
     <!-- Register Form -->
@@ -63,6 +52,7 @@ if (isset($_COOKIE['sessionID']))
         <input id="password-field" class="form-field" name="psword1" type="text" minlength="10" maxlength="48" required>
         <label class="form-label" for="pwconfirm-field">Confirm Password</label>
         <input id="pwconfirm-field" class="form-field" name="psword2" type="text" minlength="10" maxlength="48" required>
+        <input id="submit-btn" type="submit" value="Submit">
       </form>
     </section>
   </main>
