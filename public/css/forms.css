@@ -3,6 +3,11 @@
   By: Derek Tan
 */
 
+/* General Form Styling */
+.hidden {
+  display: none;
+}
+
 form.page-form {
   display: flex;
   flex-direction: column;
@@ -51,4 +56,17 @@ input#submit-btn {
 input#submit-btn:hover {
   background-color: #efaa7a;
   color: rgb(50, 45, 45);
+}
+
+/* Form Validation Msg Styling */
+p.banner {
+  display: block;
+  text-align: center;
+  font-size: 125%;
+  font-weight: bold;
+  color: #ff6848;
+}
+
+p.banner:hover::first-line {
+  text-decoration: underline #cb3333 2px;
 }

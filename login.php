@@ -62,6 +62,7 @@ if (isset($_COOKIE['sessionID']))
               <input id="submit-btn" type="submit" value="Log In">
             </div>
           </form>
+          <p id="form-msg" class="hidden">(Text)</p>
         </div>
         <div>
           <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
@@ -69,6 +70,8 @@ if (isset($_COOKIE['sessionID']))
       </div>
     </section>
   </main>
+  <!-- JS -->
+  <!-- <script src="public/js/check_form.js"></script> -->
 </body>
 
 </html>
