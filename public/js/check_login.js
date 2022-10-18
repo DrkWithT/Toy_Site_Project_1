@@ -4,9 +4,6 @@
  * @author Derek Tan
  */
 
-const INPUT_CLASS_NM = 'input.form-field';
-const SUBMIT_CLASS_NM = 'input#submit-btn';
-
 /**
  * @constant CHECK_TABLE
  * @type {Object<string, RegExp[]>}
@@ -27,21 +24,7 @@ const CHECK_TABLE = {
 };
 
 /**
- * @constant CHECK_REASONS
- * @description Validation message table.
- */
-const CHECK_REASONS = {
-  msg_list: [
-    'Inputs valid!',
-    'Invalid Username.',
-    'Invalid Password.'
-  ],
-  getMsg: function (index) {
-    return this.msg_list[index] || 'Unknown problem.'; // default validation problem msg if applicable! 
-  }
-};
-
-/**
+ * @description Helper for testing regexes against any input's value for form validation.
  * @param {string} fieldValue An inputted string from a user within an input.
  * @param {RegExp[]} regexList An entry from a config object to use for validation.
  */
@@ -62,15 +45,48 @@ function testValueOf(fieldValue, fieldNaming) {
 }
 
 /**
- * @brief This is a automatically called function expression containing initialization code.
- * The listeners store closures with the important variables inside.
+ * @brief This is a automatically called function expression (IIFE) containing initialization code.
+ * The listeners store closures with this IIFE's important variables.
  */
-(function (doc) {
-  let formDOM = doc.querySelector('form');
+(function () {
+  /// Constants
+  const LOGIN_FORM_CLASS = 'login-form';
+  const UNAME_INPUT_CLASS = 'username-field';
+  const PWORD_INPUT_CLASS = 'password-field';
+  const FORM_MSG_ID = 'form-msg';
 
-  let formFields = formDOM.querySelectorAll(INPUT_CLASS_NM);
-  let formSubmit = formDOM.querySelector(SUBMIT_CLASS_NM);
+  /// DOM Variables
+  /** @type {HTMLFormElement} */
+  let FormDOM = document.querySelector(`#${LOGIN_FORM_CLASS}`);
+
+  /** @type {HTMLInputElement} */
+  let usernameField = document.querySelector(`#${UNAME_INPUT_CLASS}`);
+
+  /** @type {HTMLInputElement} */
+  let passwordField = document.querySelector(`#${PWORD_INPUT_CLASS}`);
+  
+  /** @type {HTMLParagraphElement} */
+  let formMsgPar = document.querySelector(`#${FORM_MSG_ID}`);
 
   // todo: put submit listener to check with regexes before submit...
+  FormDOM.addEventListener('submit', (submitEvent) => {
+    let hasEmptyForm = usernameField.value.length === 0 && passwordField.value.length === 0;
+    let usernameValid = testValueOf(usernameField.value, UNAME_INPUT_CLASS);
+    let passwordValid = testValueOf(passwordField.value, PWORD_INPUT_CLASS);
 
-})(document);
+    if (hasEmptyForm) {
+      formMsgPar.innerText = 'Enter login.';
+    } else if (!usernameValid) {
+      formMsgPar.innerText = 'Username invalid!';
+    } else if (!passwordValid) {
+      formMsgPar.innerText = 'Password invalid!';
+    } else {
+      formMsgPar.innerText = 'Inputs are valid.';
+    }
+
+    if (hasEmptyForm || !usernameValid || !passwordValid) {
+      submitEvent.preventDefault();
+    }
+  });
+
+})();
