@@ -4,10 +4,6 @@
 */
 
 /* General Form Styling */
-.hidden {
-  display: none;
-}
-
 form.page-form {
   display: flex;
   flex-direction: column;
@@ -68,5 +64,5 @@ p.banner {
 }
 
 p.banner:hover::first-line {
-  text-decoration: underline #cb3333 2px;
+  font-weight: bold;
 }
