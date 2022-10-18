@@ -71,7 +71,8 @@ if (isset($_COOKIE['sessionID']))
     </section>
   </main>
   <!-- JS -->
-  <!-- <script src="public/js/check_form.js"></script> -->
+  <script src="public/js/jquery-3.6.1.min.js"></script>
+  <script src="public/js/check_form.js"></script>
 </body>
 
 </html>
