@@ -41,7 +41,7 @@ if (isset($_COOKIE['sessionID']))
     <section class="description-section">
       <h3 class="section-heading">Tips</h3>
       <p>
-        Before entering your login information, please check that Caps Lock is not on.
+        Before entering your login information, ensure that Caps Lock is not on.
       </p>
     </section>
     <!-- Login Form -->
@@ -49,7 +49,7 @@ if (isset($_COOKIE['sessionID']))
       <div class="side-img-box">
         <div>
           <h3 class="section-heading">Log In</h3>
-          <form id="register-form" class="page-form" method="POST" action="/gateway.php">
+          <form id="login-form" class="page-form" method="POST" action="/gateway.php">
             <div class="form-item">
               <label class="form-label" for="username-field">Username</label>
               <input id="username-field" class="form-field" name="username" type="text" maxlength="32" minlength="8" required>
@@ -62,7 +62,7 @@ if (isset($_COOKIE['sessionID']))
               <input id="submit-btn" type="submit" value="Log In">
             </div>
           </form>
-          <p id="form-msg" class="hidden">(Text)</p>
+          <p id="form-msg">Enter login.</p>
         </div>
         <div>
           <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
@@ -71,7 +71,6 @@ if (isset($_COOKIE['sessionID']))
     </section>
   </main>
   <!-- JS -->
-  <script src="public/js/jquery-3.6.1.min.js"></script>
   <script src="public/js/check_form.js"></script>
 </body>
 
