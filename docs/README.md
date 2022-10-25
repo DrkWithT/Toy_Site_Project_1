@@ -4,16 +4,16 @@
 ### General Info:
  - Frontend Languages: HTML, CSS3, JS
  - Backend Tech: XAMPP with PHP 8.0+
- - VCS?: Git for Windows with GitHub
+ - VCS?: Git for Windows ~~with GitHub~~!
 
 ### Sumamry:
-This is a tentative outline of my final project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or sonnets. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
+This is a _tentative_ outline of my final project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or sonnets. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
 
 ### Features:
  1. Basic User Authentication:
-  - Creating an account: Needs a username, original password, confirm password, and _maybe_ an email (no email verification for simplicity).
-  - Logging In: Needs a valid username and password. Password is at least 10 characters long with uppercase, lowercase, and numeric characters. A special character is necessary too.
-  - Logging Out: The server-side scripts handle log out requests using cookies as an "ID" for a specific user doing so. A redirect to the homepage occurs anyway.
+  - Creating an account: Needs a username, original password, confirm password, and _maybe_ an email (no 3rd party email verification, as it is beyond this class's scope).
+  - Logging In: Needs a valid username and password. Password is at least 10 characters long with uppercase, lowercase, and numeric characters. Punctuation characters are necessary too: `'$', '!', '.'`.
+  - Logging Out: The server-side scripts handle log out requests by clearing session ID cookies for a specific user doing so. A redirect to the homepage occurs anyway.
  2. Database for User Data:
   - Table 1: Maps usernames to passwords.
   - Table 2: Maps any valid username to a variable length JSON/XML string that lists poem IDs.
@@ -42,4 +42,5 @@ This is a tentative outline of my final project for this web programming class. 
   - Users Only: Logout confirmation page, User page (forms usable only for its user), and a dynamic poem viewing page. Each dynamic poem listing has 5 random poems?
 
 ### Server-Side PHP:
-  - To be specified. I need to learn PHP first. I do know that they will likely interface with an SQL / SQLite3 database on my computer when testing. Also, the site will be hosted on `localhost:3000` for demos.
+  - To be specified. I need to learn PHP first. I do know that they will likely interface with an SQL / SQLite3 database on my computer. Also, the site will be tested on `localhost` for demos.
+  - TODO: learn PHP functions, classes (optional), redirection, form handling with validation, and mySQLI connections. 
