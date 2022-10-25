@@ -33,13 +33,13 @@ This is a _tentative_ outline of my final project for this web programming class
   - On each page, there will be an immovable header with a fake site logo and a nav-bar containing links. Sometimes, the header will contain special text showing the username of a logged in user.
    - Note: The browser tab’s title will be in the format of “Site Name - Page Name”.
   - Below the header, which spans the width of the page, other content such as page descriptions, images, and forms are all scrollable. The scrollable area is in a single column layout.
-  - The footer contains credits to me as the only programmer, and the date the project was started. However, the assignment info will be in comments for each file.
+  - The footer (homepage only) contains credits to me as the only programmer, and the date the project was started. However, the assignment info will be in comments for each file.
  3. Behavior:
   - The HTML forms for posting poems, logging in, creating an account, and logging out (username to confirm). should use required HTML inputs. Other things such as maxlength and placeholder should be used for inputs whenever necessary. That feature can also avoid the unnecessary use of JS in place of a pre-made, HTML feature needing less code.
-  - Any server error could redirect the user back to the home page or show an error page.
+  - Any server error could redirect the user back to the home page _or_ show an error page.
  4. Types:
   - Guests and Users: Homepage, Signup, Login
-  - Users Only: Logout confirmation page, User page (forms usable only for its user), and a dynamic poem viewing page. Each dynamic poem listing has 5 random poems?
+  - Users Only: Logout confirmation page, User page (with links to user utility pages), and a dynamic poem viewing page. Each dynamic poem listing has 5 random poems. User utility pages will be for managing their poems by (re)posting, reading, or deleting.
 
 ### Server-Side PHP:
   - To be specified. I need to learn PHP first. I do know that they will likely interface with an SQL / SQLite3 database on my computer. Also, the site will be tested on `localhost` for demos.
