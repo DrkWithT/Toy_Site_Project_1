@@ -1,10 +1,11 @@
 # README
 ## CSCI 12 Website Project: "A Poet's Place"
+## By: Derek Tan
 
 ### General Info:
- - Frontend Languages: HTML, CSS3, JS
+ - Frontend Languages: HTML, CSS 3, JS
  - Backend Tech: XAMPP with PHP 8.0+
- - VCS?: Git for Windows ~~with GitHub~~!
+ - VCS (Local): Git for Windows!
 
 ### Sumamry:
 This is a _tentative_ outline of my final project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or sonnets. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
@@ -19,7 +20,7 @@ This is a _tentative_ outline of my final project for this web programming class
   - Table 2: Maps any valid username to a variable length JSON/XML string that lists poem IDs.
   - Table 3: Maps poem IDs to poem data: Title, Text, and Likes?
  3. Other:
-  - Users use buttons or forms to do actions on the website such as liking a poem or authenticating.
+  - Users use buttons with hidden AJAX to do actions such as liking a poem.
   - Invalid URL GETs result in a special 404 page which links back to the homepage.
 
 ### Webpages:
@@ -35,7 +36,10 @@ This is a _tentative_ outline of my final project for this web programming class
   - Below the header, which spans the width of the page, other content such as page descriptions, images, and forms are all scrollable. The scrollable area is in a single column layout.
   - The footer (homepage only) contains credits to me as the only programmer, and the date the project was started. However, the assignment info will be in comments for each file.
  3. Behavior:
-  - The HTML forms for posting poems, logging in, creating an account, and logging out (username to confirm). should use required HTML inputs. Other things such as maxlength and placeholder should be used for inputs whenever necessary. That feature can also avoid the unnecessary use of JS in place of a pre-made, HTML feature needing less code.
+  - Some front-end elements will have subtle CSS effects for visual appeal.
+    - Pseudo class triggered CSS transitions: color, size, etc...
+    - CSS animations for like buttons?
+  - The HTML forms for posting poems, logging in, creating an account, and logging out. should use required HTML inputs. Other things such as maxlength and placeholder should be used for inputs whenever necessary. That feature can also avoid the unnecessary use of JS in place of a pre-made, HTML feature needing less code.
   - Any server error could redirect the user back to the home page _or_ show an error page.
  4. Types:
   - Guests and Users: Homepage, Signup, Login
@@ -43,4 +47,4 @@ This is a _tentative_ outline of my final project for this web programming class
 
 ### Server-Side PHP:
   - To be specified. I need to learn PHP first. I do know that they will likely interface with an SQL / SQLite3 database on my computer. Also, the site will be tested on `localhost` for demos.
-  - TODO: learn PHP functions, classes (optional), redirection, form handling with validation, and mySQLI connections. 
+  - TODO: learn PHP functions, classes (optional), redirection, further form validation, and mySQLI connections.
