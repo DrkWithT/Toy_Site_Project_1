@@ -14,6 +14,8 @@ if (isset($_COOKIE['sessionID']))
   if ($_COOKIE['sessionID'] === "testonly") // TODO: change dummy session check!
     redirectToPage("user.php"); // redirect all logged in users to their own page
 }
+
+// TODO: add support for session ID cookie and mySQL to check user login attempts!
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +73,7 @@ if (isset($_COOKIE['sessionID']))
     </section>
   </main>
   <!-- JS -->
-  <script src="public/js/check_form.js"></script>
+  <!-- none for now! -->
 </body>
 
 </html>
