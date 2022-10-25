@@ -4,6 +4,13 @@
  * @author Derek Tan
  */
 
+/// Constants
+const REG_FORM_CLASS = 'register-form';
+const UNAME_INPUT_ID = 'username-field';
+const PW_FIRST_INPUT_ID = 'password-field';
+const PW_CONFIRM_INPUT_ID = 'pwconfirm-field';
+const FORM_MSG_ID = 'form-msg';
+
 /**
  * @constant CHECK_TABLE
  * @type {Object<string, RegExp[]>}
@@ -11,7 +18,7 @@
  */
 const CHECK_TABLE = {
   'username-field': [/\w+/], // must be a spaceless AND word-like string!
-  'password-field': [/\w+\S+/, /(\$\!\.)/], // must have word chars with punctuation mixed!
+  'password-field': [/\w+\S+/, /(\$\!\.)/], // must have word chars and punctuation mixed!
   /**
    * @type {Function}
    * @description Gets the testing regex for validation of given input's naming.
@@ -49,42 +56,44 @@ function testValueOf(fieldValue, fieldNaming) {
  * The listeners store closures with this IIFE's important variables.
  */
 (function () {
-  /// Constants
-  const LOGIN_FORM_CLASS = 'login-form';
-  const UNAME_INPUT_CLASS = 'username-field';
-  const PWORD_INPUT_CLASS = 'password-field';
-  const FORM_MSG_ID = 'form-msg';
 
   /// DOM Variables
   /** @type {HTMLFormElement} */
-  let FormDOM = document.querySelector(`#${LOGIN_FORM_CLASS}`);
+  let FormDOM = document.querySelector(`#${REG_FORM_CLASS}`);
 
   /** @type {HTMLInputElement} */
-  let usernameField = document.querySelector(`#${UNAME_INPUT_CLASS}`);
+  let usernameField = document.querySelector(`#${UNAME_INPUT_ID}`);
 
   /** @type {HTMLInputElement} */
-  let passwordField = document.querySelector(`#${PWORD_INPUT_CLASS}`);
-  
+  let passwordField = document.querySelector(`#${PW_FIRST_INPUT_ID}`);
+
+  /** @type {HTMLInputElement} */
+  let pwConfirmField = document.querySelector(`#${PW_CONFIRM_INPUT_ID}`);
+
   /** @type {HTMLParagraphElement} */
   let formMsgPar = document.querySelector(`#${FORM_MSG_ID}`);
 
-  // todo: put submit listener to check with regexes before submit...
   FormDOM.addEventListener('submit', (submitEvent) => {
     let hasEmptyForm = usernameField.value.length === 0 && passwordField.value.length === 0;
-    let usernameValid = testValueOf(usernameField.value, UNAME_INPUT_CLASS);
-    let passwordValid = testValueOf(passwordField.value, PWORD_INPUT_CLASS);
+
+    let usernameValid = testValueOf(usernameField.value, UNAME_INPUT_ID);
+    let passwordValid = testValueOf(passwordField.value, PW_FIRST_INPUT_ID);
+
+    let confirmValid = passwordField.value == pwConfirmField.value;
 
     if (hasEmptyForm) {
       formMsgPar.innerText = 'Enter login.';
     } else if (!usernameValid) {
       formMsgPar.innerText = 'Username invalid!';
-    } else if (!passwordValid) {
+    } else if (!passwordValid ) {
       formMsgPar.innerText = 'Password invalid!';
+    } else if (confirmValid) {
+      formMsgPar.innerText = 'Password mismatch!';
     } else {
       formMsgPar.innerText = 'Inputs are valid.';
     }
 
-    if (hasEmptyForm || !usernameValid || !passwordValid) {
+    if (hasEmptyForm || !usernameValid || !passwordValid || !confirmValid) {
       submitEvent.preventDefault();
     }
   });
