@@ -2,8 +2,7 @@
 /**
  * A helper function for redirecting to another page.
  */
-function redirectToPage(string $page)
-{
+function redirectToPage(string $page) {
   $temp = "";
 
   if (strlen($page) > 0)

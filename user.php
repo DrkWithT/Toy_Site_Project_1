@@ -8,10 +8,11 @@
 /* Imports */
 use function Util\redirectToPage;
 
-if (!isset($_COOKIE['sessionID']))
+if (!isset($_COOKIE['sessionID'])) {
   redirectToPage(""); // redirect all visitors to homepage
-else if ($_COOKIE['sessionID'] == "none")
+} else if ($_COOKIE['sessionID'] == "none") {
   redirectToPage("");
+}
 ?>
 
 <!DOCTYPE html>

@@ -8,8 +8,7 @@
 /* Imports */
 use function Util\redirectToPage;
 
-if (isset($_COOKIE['sessionID']))
-{
+if (isset($_COOKIE['sessionID'])) {
   if ($_COOKIE['sessionID'] === "testonly") // TODO: change dummy session check!
     redirectToPage("user.php"); // redirect all logged in users to their own page
 }
