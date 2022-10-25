@@ -1,14 +1,22 @@
 /**
- * @file check_form.js
- * @version 0.0.1
+ * @file validate_signup.js
+ * @version 0.0.2 Added matching password check.
  * @author Derek Tan
  */
 
-/// Constants
+/** @description HTML id for signup form. */
 const REG_FORM_CLASS = 'register-form';
+
+/** @description Username input id. */
 const UNAME_INPUT_ID = 'username-field';
+
+/** @description 1st password input id. */
 const PW_FIRST_INPUT_ID = 'password-field';
+
+/** @description Password confirmation input id. */
 const PW_CONFIRM_INPUT_ID = 'pwconfirm-field';
+
+/** @description DOM id for the signup form's validation message. */
 const FORM_MSG_ID = 'form-msg';
 
 /**
@@ -23,7 +31,7 @@ const CHECK_TABLE = {
    * @type {Function}
    * @description Gets the testing regex for validation of given input's naming.
    * @param {string} key Input's naming.
-   * @returns {RegExp[]}
+   * @returns {RegExp[]} An array of regexes to each test.
    */
   getTest: function (key) {
     return this[key] || [/\S+/];
@@ -53,11 +61,11 @@ function testValueOf(fieldValue, fieldNaming) {
 
 /**
  * @brief This is a automatically called function expression (IIFE) containing initialization code.
- * The listeners store closures with this IIFE's important variables.
+ * The listeners store closures with this IIFE's important variables, while not exposing important variables to console.
  */
 (function () {
+  /// DOM Variables:
 
-  /// DOM Variables
   /** @type {HTMLFormElement} */
   let FormDOM = document.querySelector(`#${REG_FORM_CLASS}`);
 
@@ -72,6 +80,8 @@ function testValueOf(fieldValue, fieldNaming) {
 
   /** @type {HTMLParagraphElement} */
   let formMsgPar = document.querySelector(`#${FORM_MSG_ID}`);
+
+  /// Listeners:
 
   FormDOM.addEventListener('submit', (submitEvent) => {
     let hasEmptyForm = usernameField.value.length === 0 && passwordField.value.length === 0;
@@ -98,4 +108,5 @@ function testValueOf(fieldValue, fieldNaming) {
     }
   });
 
+  // todo: add more listeners?
 })();
