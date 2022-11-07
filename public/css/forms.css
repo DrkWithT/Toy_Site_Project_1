@@ -20,7 +20,7 @@ label.form-label {
   display: block;
   padding: 8px 0;
   font-weight: bold;
-  color: rgb(85, 85, 100);
+  color: rgb(65, 65, 85);
 }
 
 label.form-label:hover {
@@ -37,6 +37,20 @@ input.form-field {
 
 input.form-field:invalid {
   border: 2px solid #cb3333;
+}
+
+textarea.form-text {
+  display: block;
+  margin: 8px;
+  border: 2px solid rgb(50, 45, 45);
+  background-color: rgb(235, 235, 235);
+  color: rgb(50, 45, 45);
+  resize: none;
+}
+
+textarea:focus {
+  background-color: white;
+  outline: none;
 }
 
 input#submit-btn {
