@@ -51,7 +51,7 @@ if (!isset($_COOKIE['sessionID'])) {
         <div>
           <p>
             Welcome back to your user homepage. Here, you can jump to private pages to manage your written poems.
-            However, once you delete one of your poems, the action is irreversible!
+            However, deleting one of your poems is <em>irreversible!</em>
           </p>
           <p>
             Using the other links, you can post, preview, or delete your poems. Posting a new poem will upload a new poem directly, but posting onto an existing poem by yourself will replace the old text. (Work in progress.)
