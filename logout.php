@@ -1,17 +1,5 @@
 <?php
-/**
- * A helper function for redirecting to another page.
- */
-function redirectToPage(string $page) {
-  $temp = "";
-
-  if (strlen($page) > 0)
-    $temp = $page;
-  else
-    $temp = "homepage.html";
-
-  header("Location: http://localhost:3000/".$temp);
-}
+use function Util\redirectToPage;
 
 setcookie("sessionID", "none", 0, "/"); // erase sessionID
 redirectToPage(""); // return to homepage after logout
