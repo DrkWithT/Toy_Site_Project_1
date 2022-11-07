@@ -39,9 +39,9 @@ if (!isset($_COOKIE['sessionID'])) {
   </header>
   <!-- Side Nav Index -->
   <div id="side-nav">
-    <a class="side-nav-link" href="#">Post Poem</a>
-    <a class="side-nav-link" href="#">Review Poem</a>
-    <a class="side-nav-link" href="#">Delete Poem</a>
+    <a class="side-nav-link" href="/posting.php">Post</a>
+    <a class="side-nav-link" href="#">Review</a>
+    <a class="side-nav-link" href="#">Delete</a>
   </div>
   <main id="scrollable">
     <!-- Info -->
@@ -54,7 +54,7 @@ if (!isset($_COOKIE['sessionID'])) {
             However, once you delete one of your poems, the action is irreversible!
           </p>
           <p>
-            Here, you can post, preview, or delete your poems. Posting a new poem will upload a new poem directly, but posting onto an existing poem by yourself will replace the old text. (Work in progress.)
+            Using the other links, you can post, preview, or delete your poems. Posting a new poem will upload a new poem directly, but posting onto an existing poem by yourself will replace the old text. (Work in progress.)
           </p>
         </div>
         <div>
