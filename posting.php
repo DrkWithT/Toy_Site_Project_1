@@ -1,3 +1,15 @@
+<?php
+  use function Util\redirectToPage;
+
+  // redirect logged in users to their pages
+  if (isset($_COOKIE['sessionID'])) {
+    // TODO: change dummy session check!
+    if ($_COOKIE['sessionID'] === "testonly") {
+      redirectToPage("user.php"); // redirect all logged in users to their own page
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,18 +34,18 @@
       <div class="side-img-box">
         <div>
           <p>
-            This is the place to post a new poem. Poems must be titled and at least 50 characters long.
+            This is the place to post a new poem. Poems must be titled and at least 48 characters long.
           </p>
           <form id="post-form" class="page-form" action="|" method="post">
             <div>
               <!-- Poem Title -->
               <label class="form-label" for="poem-title">Title</label>
-              <input id="title-field" class="form-field" name="title" type="text" maxlength="56" minlength="8" required>
+              <input id="title-field" class="form-field" name="title" type="text" maxlength="48" minlength="8" required>
             </div>
             <div>
               <!-- Poem Text -->
               <label class="form-label" for="poem-text">Text</label>
-              <textarea id="poem-text" class="form-text" placeholder="Type or paste your work here"></textarea>
+              <textarea id="poem-text" class="form-text" placeholder="Type or paste your work here" minlength="48" required></textarea>
             </div>
             <div class="form-item">
               <input id="submit-btn" type="submit" value="Submit">
@@ -46,5 +58,7 @@
       </div>
     </section>
   </main>
+  <!-- JS -->
+  <script src="./public/js/jquery-3.6.1.min.js"></script>
 </body>
 </html>

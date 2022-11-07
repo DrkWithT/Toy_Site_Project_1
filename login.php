@@ -10,8 +10,10 @@ use function Util\redirectToPage;
 
 // redirect logged in users to their pages
 if (isset($_COOKIE['sessionID'])) {
-  if ($_COOKIE['sessionID'] === "testonly") // TODO: change dummy session check!
+  // TODO: change dummy session check!
+  if ($_COOKIE['sessionID'] === "testonly") {
     redirectToPage("user.php"); // redirect all logged in users to their own page
+  }
 }
 
 // TODO: add support for session ID cookie and mySQL to check user login attempts!
