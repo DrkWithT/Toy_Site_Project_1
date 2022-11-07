@@ -6,13 +6,16 @@
 */
 
 namespace Util; // Declare a module for basic utility functions.
+
 /**
  * A helper function for checking a username with a password before any further action.
  */
 function checkLogin($username, $password) {
   $success = ($username === "TestUser" && $password === "FooBar1234!"); // dummy check
 
-  // TODO: more login checking with SQL later
+  // TODO 1: more login checking with SQL later!
+  //$auth_conn = mysqli(...);
+  // TODO 2: use prepared SQL statements with user inputted data IF authenticated!
 
   // if the login is valid, assign session ID to track user
   if ($success)
