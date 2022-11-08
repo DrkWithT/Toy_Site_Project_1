@@ -1,7 +1,7 @@
 <?php
 /**
-* gateway.php
-* Redirects all valid logins to their user page, and redirects invalid logins to homepage.
+* util.php
+* Contains misc. helper functions.
 * Derek Tan
 */
 
@@ -52,20 +52,3 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 exit(0);
 ?>
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Poet's Place - Redirect</title>
-</head>
-
-<body>
-  <p>You are being redirected.</p>
-</body>
-
-</html>
--->
