@@ -17,8 +17,10 @@ This is a _tentative_ outline of my final project for this web programming class
     - Logging Out: The server-side scripts handle log out requests by clearing session ID cookies for a specific user doing so. A redirect to the homepage occurs anyway.
  2. Database for User Data:
     - Table 1: Maps usernames to passwords.
-    - Table 2: Maps any valid username to a variable length JSON/XML string that lists poem IDs.
-    - Table 3: Maps poem IDs to poem data: Title, Text
+    - Table 2: Maps any valid username to a JSON file that stores user data: poem IDs, etc.
+    - Table 3: Maps poem IDs to poem data: Title, Author, Text, Date
+    - Table 4: Maps session ID cookie values to active user names!
+      - Session IDs use the PHP `uniqid()` function.
  3. Other:
     - ~~Users use buttons with hidden AJAX to do actions such as liking a poem.~~ (MAYBE)
     - Invalid URL GETs result in a special 404 page which links back to the homepage.
