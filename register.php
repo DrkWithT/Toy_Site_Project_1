@@ -1,73 +1,3 @@
-<?php
-
-/**
- * register.php
- * Services registration for users.
- * Derek Tan
- * TODO: Finish and integrate tryRegister function!
- */
-
-/* Imports */
-use Util;
-
-/**
- * Attempts to create an incoming user's entry in DB within table "Users". Also tries to insert a session record into the DB.
- */
-// function tryRegister($uname, $pword_original, $pword_confirm) {
-//   $sanitized_uname = sanitizeText($uname, SANIT_HTML_ESC);
-//   $sanitized_pword1 = sanitizeText($pword_original, SANIT_HTML_ESC);
-//   $sanitized_pword2 = sanitizeText($pword_confirm, SANIT_HTML_ESC);
-
-//   $result = "none";
-
-//   $db_con = NULL;
-
-//   if (strlen($uname) >= 6 && $sanitized_pword1 === $sanitized_pword2) {
-//     // Connect with mySQLi credentials for connection and check for success...
-//     $db_con = new mysqli(DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", DB_NAME);
-//   }
-
-//   // IF all is ok, do the SQL operation
-//   if (!$db_con->connect_error) {
-//     $pshash = password_hash($sanitized_pword1, PASSWORD_BCRYPT); // Securely encrypt password by BCrypt
-//     $userdesc = "A fellow user.";
-
-//     // Attempt to prepare SQL statement (check for SQL errors and pre-existing entry!).
-//     $new_usr_statement = $db_con->prepare("INSERT INTO Users (username, passhash, userdesc) VALUE (?, ?, ?)");
-//     $new_usr_statement->bind_param("sss", $sanitized_uname, $pshash, $userdesc);
-//     $new_usr_statement->execute();
-
-//     // Create user session if prior operation worked
-//     if ($db_con->errno == 0) {
-//       $ssn_id_temp = uniqid("A2cF4", TRUE); // make special ID string for "ssn_id" cookie
-      
-//       if ($db_con->query("INSERT INTO UserSsns (s_id, s_usr) VALUE ($ssn_id_temp, $sanitized_uname)") == TRUE) {
-//         $result = $ssn_id_temp;
-//       }
-//     } else {
-//       echo "Signup Failed.";
-//     }
-    
-//     // Close mySQL connection
-//     $db_con->close();
-//   }
-
-//   return $result; // TODO: Create a cookie from this string!
-// }
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-  $username = $_POST['username'];
-  $pword1 = $_POST['psword1'];
-  $pword2 = $_POST['psword1'];
-
-  // TODO: add cookie-based auth feature WITH mySQL to check user registration attempts! See namespace Util.
-  // TODO: implement and use Util\tryRegister as main registration function! See namespace Util.
-  
-  // if the registration worked, assign session ID to track user
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,6 +46,75 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
           <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
         </div>
       </div>
+      <?php
+      /**
+       * register.php
+       * Services registration for users.
+       * Derek Tan
+       * TODO: Finish and integrate tryRegister function!
+       */
+
+      /* Imports */
+
+      use Util;
+
+      /**
+       * Attempts to create an incoming user's entry in DB within table "Users". Inputs SHOULD be sanitized.
+       * @param mysqli &$db_connection A mySQL conenction reference. 
+       * @param string $uname Username string.
+       * @param string $pword_original The real password string.
+       * @param string $pword_confirm A repeat of the password string.
+       * @return bool TRUE on success.
+       */
+      function tryRegister(&$db_connection, $uname, $pword_original, $pword_confirm)
+      {
+        $clean_username = $db_connection->real_escape_string(Util\sanitizeText($uname));
+        $clean_password1 = $db_connection->real_escape_string(Util\sanitizeText($pword_original));
+        $clean_password2 = $db_connection->real_escape_string(Util\sanitizeText($pword_confirm));
+
+        $status = FALSE;
+
+        // Check for username length and new password match
+        if (strlen($uname) < 6 || $clean_password1 !== $clean_password2) {
+          return $status;
+        }
+
+        // If connection is ok, do SQL operation
+        if (!$db_connection->connect_error) {
+          $pshash = password_hash($clean_password1, PASSWORD_BCRYPT); // Securely hash password by BCrypt
+          $userdesc = "A fellow user.";
+
+          // Attempt to create a new account entry in DB
+          $status = $db_connection->query("INSERT INTO Users VALUES ('" . $clean_username . "', '" . $pshash . "', '" . $userdesc . "')");
+        }
+
+        return $status;
+      }
+
+      /* Postback */
+      if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
+
+        // get form data
+        $raw_username = $_POST['username'];
+        $raw_pword1 = $_POST['psword1'];
+        $raw_pword2 = $_POST['psword2'];
+
+        // attempt to create a new account
+        $signup_ok = tryRegister($db_con, $raw_username, $raw_pword1, $raw_pword2);
+
+        // Close mySQL connection
+        $db_con->close();
+
+        // if the registration worked, echo login link HTML!
+        if ($signup_ok) {
+          echo "<div><a class=\"nav-link\" href=\"/login.php\">Login!</a></div>";
+        } else {
+          echo "<div><p>Invalid username or password.</p></div>";
+        }
+      }
+
+      ?>
     </section>
   </main>
   <!-- JS -->
