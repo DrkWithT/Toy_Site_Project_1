@@ -50,7 +50,7 @@ function checkLogin(&$db_con, $uname, $pword) {
   return $status;
 }
 
-// handle postback requests!
+// handle postback requests
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <div class="side-img-box">
         <div>
           <h3 class="section-heading">Log In</h3>
-          <form id="login-form" class="page-form" method="POST" action="/gateway.php">
+          <form id="login-form" class="page-form" method="POST" action="/login.php">
             <div class="form-item">
               <label class="form-label" for="username-field">Username</label>
               <input id="username-field" class="form-field" name="username" type="text" maxlength="32" minlength="8" required>
