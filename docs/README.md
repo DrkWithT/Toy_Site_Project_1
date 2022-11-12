@@ -48,7 +48,6 @@ This is a _tentative_ outline of my final project for this web programming class
 
 ### Server-Side PHP:
   - To be specified. I need to learn PHP first. I do know that they will likely interface with an SQL / SQLite3 database on my computer. Also, the site will be tested on `localhost` for demos.
-  - **TODO**: learn PHP functions, classes (optional), redirection, further form validation, and mySQLI connections.
-  - **TODO**: Refactor PHP pages as postbacks!
+  - **DONE**: Refactor PHP pages as postbacks!
     - Postbacks are PHP pages that handle their own POST requests with hidden PHP.
-  - **TODO**: more picture decor!
+  - **TODO**: more picture decor with _alt_ text!
