@@ -6,17 +6,92 @@
  */
 
 /* Imports */
-use function Util\redirectToPage;
+use Util;
 
-// redirect logged in users to their pages
-if (isset($_COOKIE['sessionID'])) {
-  // TODO: change dummy session check!
-  if ($_COOKIE['sessionID'] === "testonly") {
-    redirectToPage("user.php"); // redirect all logged in users to their own page
+/**
+ * A helper function for checking a username with a password before any further action.
+ * @param mysqli $db_con A reference to a SQL connection object.
+ * @param string $uname A pre-sanitized username string.
+ * @param string $pword A pre-sanitized password string.
+ * @return int `0` on success, `1` on SQL connection failure, `2` on login failure.
+ */
+function checkLogin(&$db_con, $uname, $pword) {
+  $status = 0; // Assume success until otherwise!
+
+  $phash = NULL;
+  $query_result = NULL;
+  $query_row = NULL;
+  
+  // Connect with mySQLi credentials for connection and check for success.
+  if (!$db_con->connect_error) {
+    $phash = password_hash($pword, PASSWORD_BCRYPT);
+
+    $query_result = $db_con->query("SELECT passhash FROM Users WHERE username = '" . $uname . "'");
+  } else {
+    $status = 1; // when connect error code is set, it will not be overwritten!
   }
+
+  // Get query row only if connection is okay.
+  if ($status == 0 && $query_result !== FALSE) {
+    $query_row = $query_result->fetch_assoc();
+  } else if ($status != 1) {
+    $status = 2;
+  }
+
+  // Check for failing case of unmatching password hash.
+  if ($status == 0 && $phash != NULL && $query_row != NULL) {
+    if ($phash != $query_row['passhash']) {
+      $status = 2;
+    }
+  } else if ($status != 1) {
+    $status = 2;
+  }
+
+  return $status;
 }
 
-// TODO: add support for session ID cookie and mySQL to check user login attempts!
+// handle postback requests!
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
+
+  // check if user is already logged on for a redirect home
+  if (isset($_COOKIE['ssnID'])) {
+    if (Util\matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
+      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+    }
+  }
+
+  $raw_username = $POST['username'];
+  $raw_password = $POST['password'];
+
+  $clean_username = Util\sanitizeText($raw_username, Util\SANIT_HTML_ESC);
+  $clean_password = Util\sanitizeText($raw_password, Util\SANIT_HTML_ESC);
+
+  // authenticate user based on their login info
+  $login_status = checkLogin($db_con, $clean_username, $clean_password);
+  $recorded_ssn = FALSE; 
+
+  if ($login_status == 0) {
+    $recorded_ssn = Util\createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
+  }
+  
+  $db_con->close();
+
+  // log error message to client
+  switch ($login_status) {
+    case 1:
+      setcookie("ssnID", "none");
+      echo "Unable to auth!";
+      break;
+    case 2:
+      setcookie("ssnID", "none");
+      echo "Invalid login data!";
+      break;
+    default:
+      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+      break;
+  }
+}
 ?>
 
 <!DOCTYPE html>
