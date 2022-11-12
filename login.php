@@ -50,7 +50,7 @@ function checkLogin(&$db_con, $uname, $pword) {
   return $status;
 }
 
-// handle postback requests
+/* Postback */
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
@@ -64,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $raw_username = $POST['username'];
   $raw_password = $POST['password'];
 
-  $clean_username = Util\sanitizeText($raw_username, Util\SANIT_HTML_ESC);
-  $clean_password = Util\sanitizeText($raw_password, Util\SANIT_HTML_ESC);
+  $clean_username = $db_con->real_escape_string(Util\sanitizeText($raw_username));
+  $clean_password = $db_con->real_escape_string(Util\sanitizeText($raw_password));
 
   // authenticate user based on their login info
   $login_status = checkLogin($db_con, $clean_username, $clean_password);
