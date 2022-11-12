@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS -->
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
   <title>A Poet's Place - Register</title>
@@ -80,7 +81,7 @@
         }
 
         // If connection is ok, do SQL operation
-        if (!$db_connection->connect_error) {
+        if ($db_connection->connect_errno != 0) {
           $pshash = password_hash($clean_password1, PASSWORD_BCRYPT); // Securely hash password by BCrypt
           $userdesc = "A fellow user.";
 

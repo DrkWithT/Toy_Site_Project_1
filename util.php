@@ -3,7 +3,6 @@
  * util.php
  * Contains misc. helper functions.
  * Derek Tan
- * TODO: Write functions for login and logout.
  */
 
 namespace Util; // Declare a module for other helper functions.
@@ -61,7 +60,7 @@ function createSession(&$db_connection, $uname, $ssn_id_value) {
     return $made_record;
   }
 
-  $sql = "INSERT INTO Ssns VALUES ('".$ssn_id_value."', '".$uname."')";
+  $sql = "INSERT INTO Ssns VALUES ('" . $ssn_id_value . "', '" . $uname . "')";
   setcookie("ssnID", $ssn_id_value, 0, "/", "", FALSE, TRUE);
   
   $made_record = $db_connection->query($sql);
@@ -79,7 +78,7 @@ function destroySession(&$db_connection, $uname) {
     return;
   }
 
-  $db_connection->query("DELETE FROM Ssns WHERE username='".$uname."'"); // clear DB session on back-end DB!
+  $db_connection->query("DELETE FROM Ssns WHERE username='" . $uname . "'"); // clear DB session on back-end DB!
   setcookie("ssnID", "none"); // clear ssnID cookie for client!
 }
 

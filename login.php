@@ -23,7 +23,7 @@ function checkLogin(&$db_con, $uname, $pword) {
   $query_row = NULL;
   
   // Connect with mySQLi credentials for connection and check for success.
-  if (!$db_con->connect_error) {
+  if ($db_con->connect_errno != 0) {
     $phash = password_hash($pword, PASSWORD_BCRYPT);
 
     $query_result = $db_con->query("SELECT passhash FROM Users WHERE username = '" . $uname . "'");
@@ -101,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS -->
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
   <title>A Poet's Place - Login</title>
