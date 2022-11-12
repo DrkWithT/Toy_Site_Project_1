@@ -32,7 +32,7 @@
       <div class="side-img-box">
         <div>
           <h3 class="section-heading">Register</h3>
-          <!-- <form id="register-form" class="page-form" method="POST" action="/register.php">
+          <form id="register-form" class="page-form" method="POST" action="/register.php">
             <label class="form-label" for="username-field">Setup Username</label>
             <input id="username-field" class="form-field" name="username" type="text" minlength="6" maxlength="36" required>
             <label class="form-label" for="password-field">Setup Password</label>
@@ -40,7 +40,7 @@
             <label class="form-label" for="pwconfirm-field">Confirm Password</label>
             <input id="pwconfirm-field" class="form-field" name="psword2" type="text" minlength="12" maxlength="48" required>
             <input id="submit-btn" type="submit" value="Submit" disabled>
-          </form> -->
+          </form>
         </div>
         <div>
           <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
@@ -55,9 +55,9 @@
        */
 
       /* Imports */
-
       use Util;
 
+      /* Helper Functions */
       /**
        * Attempts to create an incoming user's entry in DB within table "Users". Inputs SHOULD be sanitized.
        * @param mysqli &$db_connection A mySQL conenction reference. 
