@@ -16,8 +16,6 @@ const DB_HOST_STR = "localhost";
 const DB_NAME = "poetplace";
 const SERVER_HOST_STR = "http://localhost:3000";
 const UNIQID_PREFIX = "A2cF4";
-const SANIT_TRIM_SPC = 1;
-const SANIT_HTML_ESC = 2;
 
 /* Misc. Helpers */
 
@@ -39,19 +37,10 @@ function redirectToPage(string $host, string $page) {
 /**
  * A helper function for sanitizing a user's input strings.
  * Has two modes denoted by constants in the Util Namespace: trim spaces and escaping html sequences.
+ * @param string $txt
  */
-function sanitizeText($txt, $mode) {
-  $new_txt = $txt;
-
-  if ($mode >= SANIT_TRIM_SPC) {
-    $new_txt = trim($new_txt);
-  }
-
-  if ($mode >= SANIT_HTML_ESC) {
-    $new_txt = htmlspecialchars($new_txt);
-  }
-
-  return $new_txt;
+function sanitizeText($txt) {
+  return htmlspecialchars(trim($txt));
 }
 
 /* Session Helpers */
