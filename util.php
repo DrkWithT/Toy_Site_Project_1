@@ -6,17 +6,20 @@
  * TODO: Write functions for login and logout.
  */
 
-namespace Util; // Declare a module for basic utility functions.
+namespace Util; // Declare a module for other helper functions.
 
 use mysqli;
 
 /* Constants */
+
 const DB_HOST_STR = "localhost";
 const DB_NAME = "poetplace";
 const SERVER_HOST_STR = "http://localhost:3000";
-
+const UNIQID_PREFIX = "A2cF4";
 const SANIT_TRIM_SPC = 1;
 const SANIT_HTML_ESC = 2;
+
+/* Misc. Helpers */
 
 /**
  * A helper function for redirecting to another page.
@@ -51,70 +54,70 @@ function sanitizeText($txt, $mode) {
   return $new_txt;
 }
 
+/* Session Helpers */
+
 /**
- * A helper function for checking a username with a password before any further action.
+ * Updates the DB with an active session entry after setting an ssnID cookie.
+ * The username `uname` must be a sanitized string and `ssn_id_value` must be from the DB.
+ * @param mysqli &$db_connection A reference to a SQL connection.
+ * @param string $uname A pre-sanitized username string.
+ * @param string $ssn_id_value A specific session ID string.
+ * @return bool `TRUE` if a new session entry is inserted to the DB. 
  */
-function checkLogin($username, $password) {
-  $success = ($username === "TestUser" && $password === "FooBar1234!"); // dummy check
+function createSession(&$db_connection, $uname, $ssn_id_value) {
+  $made_record = FALSE; // checks SQL INSERT success
+  
+  // exit early when connection is bad
+  if ($db_connection->connect_errno != 0) {
+    return $made_record;
+  }
 
-  // TODO 1: more login checking with SQL later!
-  //$auth_conn = mysqli(...);
-  // TODO 2: use prepared SQL statements with user inputted data IF authenticated!
+  $sql = "INSERT INTO Ssns VALUES ('".$ssn_id_value."', '".$uname."')";
+  setcookie("ssnID", $ssn_id_value, 0, "/", "", FALSE, TRUE);
+  
+  $made_record = $db_connection->query($sql);
 
-  // if the login is valid, assign session ID to track user
-  // if ($success) {
-  //   setcookie("sessionID", "testonly", 0, "/");
-  // }
-
-  return $success;
+  return $made_record;
 }
 
 /**
- * Attempts to create an incoming user's entry in the table "Users".
+ * Used for user logouts, as it clears a session entry from the DB along with the `ssnID` cookie. 
+ * @param mysqli &$db_connection A reference to a SQL connection.
+ * @param string $uname A pre-sanitized username string.
  */
-function tryRegister($uname, $pword_original, $pword_confirm) {
-  $sanitized_uname = sanitizeText($uname, SANIT_HTML_ESC);
-  $sanitized_pword1 = sanitizeText($pword_original, SANIT_HTML_ESC);
-  $sanitized_pword2 = sanitizeText($pword_confirm, SANIT_HTML_ESC);
-
-  $result = [
-    "err" => TRUE,   // error exists?
-    "sid" => "none"   // session id?
-  ];
-
-  $db_con = NULL;
-
-  if (strlen($uname) >= 10 && $sanitized_pword1 === $sanitized_pword2) {
-    // Connect with mySQLi credentials for connection and check for success...
-    $db_con = new mysqli(DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", DB_NAME); // TODO: setup mySQL server accounts!
+function destroySession(&$db_connection, $uname) {
+  if ($db_connection->connect_errno != 0) {
+    return;
   }
 
-  // IF all is ok, do the SQL operation...
-  if (!$db_con->connect_error) {
-    $pshash = password_hash($sanitized_pword1, PASSWORD_BCRYPT); // Securely encrypt the password by BCrypt!
-    
-    // Attempt to prepare SQL statement (check for SQL errors and pre-existing entry!).
-    $new_usr_statement = $db_con->prepare("INSERT INTO Users (username, passhash) VALUE (?, ?)");
-    $new_usr_statement->bind_param("ss", $sanitized_uname, $pshash);
-    $new_usr_statement->execute();
+  $db_connection->query("DELETE FROM Ssns WHERE username='".$uname."'"); // clear DB session on back-end DB!
+  setcookie("ssnID", "none"); // clear ssnID cookie for client!
+}
 
-    $result['err'] = $db_con->errno != 0; // get errno for 1st SQL operation
+/**
+ * Returns a valid username bound to a session by an ssnID cookie value.
+ * If no such session exists with the given `ssnID` value, `"none"` is returned.
+ * @param mysqli &$db_connection A reference to a SQL connection.
+ * @param string $ssn_id_value A specific session ID string.
+ * @return int `0` on success, `1` on SQL connection failure, `2` on login failure.
+ */
+function matchSessionID(&$db_connection, $ssn_id_value) {
+  $ssn_user = "none";
 
-    if (!$result['err']) {
-      $ssn_id_temp = uniqid("A2cF4", TRUE); // make special ID string for "ssn_id" cookie
-      
-      if ($db_con->query("INSERT INTO UserSsns (s_id, s_usr) VALUE ($ssn_id_temp, $sanitized_uname)") == TRUE) {
-        $result['sid'] = $ssn_id_temp;
-      }
-    }
-
-    $result['err'] = $db_con->errno != 0; // get errno for 2nd SQL operation
-    
-    // Close mySQL connection...
-    $db_con->close();
+  if ($db_connection->connect_errno != 0) {
+    return $ssn_user;
   }
 
-  return $result;
+  $sql = "SELECT FROM Ssns WHERE ssnid='".$ssn_id_value."'";
+
+  $query_result = $db_connection->query($sql);
+
+  if ($query_result !== FALSE) {
+    $query_row = $query_result->fetch_assoc();
+    $ssn_user = $query_row['username'];
+  }
+
+  return $ssn_user;
 }
 
 exit(0);
