@@ -3,6 +3,7 @@
  * util.php
  * Contains misc. helper functions.
  * Derek Tan
+ * NOTE: check if SQL DB for Ssns uses "sid" or "ssnid" for the ID string.
  */
 
 namespace Util; // Declare a module for other helper functions.
