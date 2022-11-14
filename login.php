@@ -17,29 +17,27 @@ require "./util.php";
 function checkLogin(&$db_con, $uname, $pword) {
   $status = 0; // Assume success until otherwise!
 
-  $phash = NULL;
   $query_result = NULL;
   $query_row = NULL;
   
   // Connect with mySQLi credentials for connection and check for success.
-  if ($db_con->connect_errno != 0) {
-    $phash = password_hash($pword, PASSWORD_BCRYPT);
-
+  if ($db_con->connect_errno == 0) {
     $query_result = $db_con->query("SELECT * FROM users WHERE username = '" . $uname . "'");
   } else {
     $status = 1; // when connect error code is set, it will not be overwritten!
   }
 
   // Get query row only if connection is okay.
-  if ($status == 0 && $query_result !== FALSE) {
+  if ($status == 0 && $query_result != FALSE) {
     $query_row = $query_result->fetch_assoc();
   } else if ($status != 1) {
     $status = 2;
   }
 
-  // Check for failing case of unmatching password hash.
-  if ($status == 0 && $phash != NULL && $query_row != NULL) {
-    if ($phash != $query_row['passhash']) {
+  // Check for failing case of unmatching password hash. FIX!!
+  if ($status == 0 && $query_row != NULL) {
+    if (!password_verify($pword, $query_row['passhash'])) {
+      echo "Mismatch!"; // debug
       $status = 2;
     }
   } else if ($status != 1) {
@@ -57,11 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   if (isset($_COOKIE['ssnID'])) {
     if (Util\matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
       Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+      exit(0);
     }
   }
 
-  $raw_username = $POST['username'];
-  $raw_password = $POST['password'];
+  $raw_username = $_POST['username'];
+  $raw_password = $_POST['password'];
 
   $clean_username = $db_con->real_escape_string(Util\sanitizeText($raw_username));
   $clean_password = $db_con->real_escape_string(Util\sanitizeText($raw_password));

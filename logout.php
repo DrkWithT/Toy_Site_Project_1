@@ -45,6 +45,7 @@
      * logout.php
      * Services logout for users.
      * Derek Tan
+     * TODO: Fix session bug: username session does not erase from DB! See destroySession().
      */
 
     require "./util.php";
@@ -54,12 +55,7 @@
 
       $ssn_uname = Util\matchSessionID($db_con, $_COOKIE['ssnID']);
 
-      if ($ssn_uname != "none") {
-        Util\destroySession($db_con, $ssn_uname);
-      } else {
-        echo "<p><strong>Invalid session info!</strong></p>";
-        sleep(1);
-      }
+      Util\destroySession($db_con, $ssn_uname);
 
       $db_con->close();
 
