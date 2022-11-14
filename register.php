@@ -3,7 +3,6 @@
  * register.php
  * Services registration for users.
  * Derek Tan
- * TODO: Finish and integrate tryRegister function!
  */
 
 require "util.php";
@@ -33,12 +32,8 @@ function tryRegister(&$db_connection, $uname, $pword_original, $pword_confirm)
   }
 
   // If connection is ok, do SQL operation
-  if ($db_connection->connect_errno != 0) {
+  if ($db_connection->connect_errno == 0) {
     $pshash = password_hash($clean_password1, PASSWORD_BCRYPT); // Securely hash password by BCrypt
-    
-    if (!$pshash) {
-      echo "WARN: NULL phash!";
-    }
 
     $userdesc = "A fellow user.";
 
