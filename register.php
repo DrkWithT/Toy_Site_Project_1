@@ -16,7 +16,6 @@
   <header>
     <h1 id="site-title">A Poet's Place</h1>
     <nav>
-      <!-- TODO: replace href with /landing.php -->
       <a class="nav-link" href="/homepage.html">Home</a>
     </nav>
   </header>
@@ -44,7 +43,7 @@
           </form>
         </div>
         <div>
-          <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
+          <img class="side-img" alt="bookshelf image" src="./public/img/noble_bookshelf_flickr.png">
         </div>
       </div>
       <?php

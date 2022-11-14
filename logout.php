@@ -36,7 +36,7 @@
           </form>
         </div>
         <div>
-          <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
+          <img class="side-img" alt="bookshelf image" src="./public/img/noble_bookshelf_flickr.png">
         </div>
       </div>
     </section>
