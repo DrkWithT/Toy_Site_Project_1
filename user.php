@@ -41,9 +41,9 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
 
 $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
-if (!isset($_COOKIE['sessionID'])) {
+if (!isset($_COOKIE['ssnID'])) {
   Util\redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
-} else if ($_COOKIE['sessionID'] == "none") {
+} else if ($_COOKIE['ssnID'] == "none") {
   Util\redirectToPage(Util\SERVER_HOST_STR, "");
 } else {
   $basic_data = fetchUserData($db_con, $_COOKIE['sessionID']);
