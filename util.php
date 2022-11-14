@@ -54,19 +54,19 @@ function sanitizeText($txt) {
  * @return bool `TRUE` if a new session entry is inserted to the DB. 
  */
 function createSession(&$db_connection, $uname, $ssn_id_value) {
-  $made_record = FALSE; // checks SQL INSERT success
+  $create_ssn_ok = FALSE; // checks SQL INSERT success
   
   // exit early when connection is bad
   if ($db_connection->connect_errno != 0) {
-    return $made_record;
+    return $create_ssn_ok;
   }
 
   $sql = "INSERT INTO Ssns VALUES ('" . $ssn_id_value . "', '" . $uname . "')";
   setcookie("ssnID", $ssn_id_value, 0, "/", "", FALSE, TRUE);
   
-  $made_record = $db_connection->query($sql);
+  $create_ssn_ok = $db_connection->query($sql);
 
-  return $made_record;
+  return $create_ssn_ok;
 }
 
 /**
@@ -103,7 +103,10 @@ function matchSessionID(&$db_connection, $ssn_id_value) {
 
   if ($query_result !== FALSE) {
     $query_row = $query_result->fetch_assoc();
-    $ssn_user = $query_row['username'];
+
+    if ($query_row != NULL) {
+      $ssn_user = $query_row['username'];
+    }
   }
 
   return $ssn_user;

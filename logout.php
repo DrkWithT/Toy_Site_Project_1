@@ -61,6 +61,8 @@
         sleep(1);
       }
 
+      $db_con->close();
+
       Util\redirectToPage(Util\SERVER_HOST_STR, "");
     }
     ?>

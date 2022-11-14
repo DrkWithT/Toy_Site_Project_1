@@ -27,7 +27,7 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
     $query_result = $db_connection->query("SELECT * FROM Ssns WHERE ssnid='" . $ssnid_cookie . "'");
   }
 
-  if ($query_result != NULL) {
+  if ($query_result != FALSE) {
     $row = $query_result->fetch_assoc();
 
     if ($row != NULL) {
@@ -48,6 +48,8 @@ if (!isset($_COOKIE['ssnID'])) {
 } else {
   $basic_data = fetchUserData($db_con, $_COOKIE['sessionID']);
 }
+
+$db_con->close();
 
 ?>
 
