@@ -1,13 +1,19 @@
 <?php
-  use function Util\redirectToPage;
+  /**
+   * posting.php
+   * This is the utility page for a user. Here, this PHP script handles posting new poems to the DB.
+   * Derek Tan
+   * TODO: Refactor PHP with postback logic.
+   */
+  use Util;
 
   // redirect logged in users to their pages
-  if (isset($_COOKIE['sessionID'])) {
-    // TODO: change dummy session check!
-    if ($_COOKIE['sessionID'] === "testonly") {
-      redirectToPage("user.php"); // redirect all logged in users to their own page
-    }
-  }
+  // if (isset($_COOKIE['sessionID'])) {
+  //   // TODO: change dummy session check!
+  //   if ($_COOKIE['sessionID'] === "testonly") {
+  //     Util\redirectToPage(Util\SERVER_HOST_STR, "user.php"); // redirect all logged in users to their own page
+  //   }
+  // }
 ?>
 
 <!DOCTYPE html>
