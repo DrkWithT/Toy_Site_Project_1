@@ -27,14 +27,13 @@
           </p>
           <form id="login-form" class="page-form" method="POST" action="/logout.php">
             <div class="form-item">
-              <label class="form-label" for="confirm-field">Username</label>
+              <label class="form-label" for="confirm-field">Confirm</label>
               <input id="confirm-field" class="form-field" name="quitword" type="text" maxlength="12" required>
             </div>
             <div class="form-item">
               <input id="submit-btn" type="submit" value="Log In">
             </div>
           </form>
-          <p id="form-msg">Enter login.</p>
         </div>
         <div>
           <img class="side-img" src="./public/img/noble_bookshelf_flickr.png">
