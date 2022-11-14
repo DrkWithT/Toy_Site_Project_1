@@ -55,8 +55,7 @@
        * TODO: Finish and integrate tryRegister function!
        */
 
-       /* Import Namespace */
-       use function Util\sanitizeText;
+      require "util.php";
 
       /* Helper Functions */
       /**
@@ -69,9 +68,9 @@
        */
       function tryRegister(&$db_connection, $uname, $pword_original, $pword_confirm)
       {
-        $clean_username = $db_connection->real_escape_string(sanitizeText($uname));
-        $clean_password1 = $db_connection->real_escape_string(sanitizeText($pword_original));
-        $clean_password2 = $db_connection->real_escape_string(sanitizeText($pword_confirm));
+        $clean_username = $db_connection->real_escape_string(Util\sanitizeText($uname));
+        $clean_password1 = $db_connection->real_escape_string(Util\sanitizeText($pword_original));
+        $clean_password2 = $db_connection->real_escape_string(Util\sanitizeText($pword_confirm));
 
         $status = FALSE;
 

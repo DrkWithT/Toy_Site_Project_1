@@ -6,9 +6,7 @@
  * TODO: See line 35!
  */
 
-/* Import Util Funcs */
-use function Util\matchSessionID;
-use function Util\redirectToPage;
+require "./util.php";
 
 /* Shared Var (across PHP blocks) */
 $basic_data = NULL;
@@ -25,13 +23,13 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
     "uname" => NULL,
     "uprofile" => NULL
   ]; // assoc array with named data: uname and udesc
-  
+
   $usr_query_result = NULL; // for user data by username from query 1 within query 2
   $temp_usr_name = NULL;
   $temp_usr_desc = NULL;
 
   // 1st query (inside)
-  $temp_usr_name = matchSessionID($db_connection, $ssnid_cookie);
+  $temp_usr_name = Util\matchSessionID($db_connection, $ssnid_cookie);
 
   // 2nd query
   $usr_query_result = $db_connection->query("SELECT * FROM Users WHERE username='" . $temp_usr_name . "'");
@@ -54,9 +52,9 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
 $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
 if (!isset($_COOKIE['ssnID'])) {
-  redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
+  Util\redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
 } else if ($_COOKIE['ssnID'] == "none") {
-  redirectToPage(Util\SERVER_HOST_STR, "");
+  Util\redirectToPage(Util\SERVER_HOST_STR, "");
 } else {
   $basic_data = fetchUserData($db_con, $_COOKIE['sessionID']);
 }

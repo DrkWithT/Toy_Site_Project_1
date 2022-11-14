@@ -5,11 +5,7 @@
  * Derek Tan
  */
 
-/* Import Util Funcs */
-use function Util\sanitizeText;
-use function Util\matchSessionID;
-use function Util\redirectToPage;
-use function Util\createSession;
+require "./util.php";
 
 /**
  * A helper function for checking a username with a password before any further action.
@@ -59,23 +55,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // check if user is already logged on for a redirect home
   if (isset($_COOKIE['ssnID'])) {
-    if (matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
-      redirectToPage(Util\SERVER_HOST_STR, "user.php");
+    if (Util\matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
+      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
     }
   }
 
   $raw_username = $POST['username'];
   $raw_password = $POST['password'];
 
-  $clean_username = $db_con->real_escape_string(sanitizeText($raw_username));
-  $clean_password = $db_con->real_escape_string(sanitizeText($raw_password));
+  $clean_username = $db_con->real_escape_string(Util\sanitizeText($raw_username));
+  $clean_password = $db_con->real_escape_string(Util\sanitizeText($raw_password));
 
   // authenticate user based on their login info
   $login_status = checkLogin($db_con, $clean_username, $clean_password);
   $recorded_ssn = FALSE; 
 
   if ($login_status == 0) {
-    $recorded_ssn = createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
+    $recorded_ssn = Util\createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
   }
   
   $db_con->close();
@@ -91,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       echo "Invalid login data!";
       break;
     default:
-      redirectToPage(Util\SERVER_HOST_STR, "user.php");
+      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
       break;
   }
 }
