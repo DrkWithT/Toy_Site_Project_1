@@ -1,3 +1,71 @@
+<?php
+/**
+ * register.php
+ * Services registration for users.
+ * Derek Tan
+ * TODO: Finish and integrate tryRegister function!
+ */
+
+require "util.php";
+
+$signup_ok = NULL;
+
+/* Helper Functions */
+/**
+ * Attempts to create an incoming user's entry in DB within table "Users". Inputs SHOULD be sanitized.
+ * @param mysqli &$db_connection A mySQL conenction reference. 
+ * @param string $uname Username string.
+ * @param string $pword_original The real password string.
+ * @param string $pword_confirm A repeat of the password string.
+ * @return bool TRUE on success.
+ */
+function tryRegister(&$db_connection, $uname, $pword_original, $pword_confirm)
+{
+  $clean_username = $db_connection->real_escape_string(Util\sanitizeText($uname));
+  $clean_password1 = $db_connection->real_escape_string(Util\sanitizeText($pword_original));
+  $clean_password2 = $db_connection->real_escape_string(Util\sanitizeText($pword_confirm));
+
+  $status = FALSE;
+
+  // Check for username length and new password match
+  if (strlen($uname) < 6 || $clean_password1 !== $clean_password2) {
+    return $status;
+  }
+
+  // If connection is ok, do SQL operation
+  if ($db_connection->connect_errno != 0) {
+    $pshash = password_hash($clean_password1, PASSWORD_BCRYPT); // Securely hash password by BCrypt
+    
+    if (!$pshash) {
+      echo "WARN: NULL phash!";
+    }
+
+    $userdesc = "A fellow user.";
+
+    // Attempt to create a new account entry in DB
+    $status = $db_connection->query("INSERT INTO users VALUES ('" . $clean_username . "', '" . $pshash . "', '" . $userdesc . "')");
+  }
+
+  return $status;
+}
+
+/* Postback */
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+  $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
+
+  // get form data
+  $raw_username = $_POST['username'];
+  $raw_pword1 = $_POST['psword1'];
+  $raw_pword2 = $_POST['psword2'];
+
+  // attempt to create a new account
+  $signup_ok = tryRegister($db_con, $raw_username, $raw_pword1, $raw_pword2);
+
+  // Close mySQL connection
+  $db_con->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,77 +116,18 @@
         </div>
       </div>
       <?php
-      /**
-       * register.php
-       * Services registration for users.
-       * Derek Tan
-       * TODO: Finish and integrate tryRegister function!
-       */
-
-      require "util.php";
-
-      /* Helper Functions */
-      /**
-       * Attempts to create an incoming user's entry in DB within table "Users". Inputs SHOULD be sanitized.
-       * @param mysqli &$db_connection A mySQL conenction reference. 
-       * @param string $uname Username string.
-       * @param string $pword_original The real password string.
-       * @param string $pword_confirm A repeat of the password string.
-       * @return bool TRUE on success.
-       */
-      function tryRegister(&$db_connection, $uname, $pword_original, $pword_confirm)
-      {
-        $clean_username = $db_connection->real_escape_string(Util\sanitizeText($uname));
-        $clean_password1 = $db_connection->real_escape_string(Util\sanitizeText($pword_original));
-        $clean_password2 = $db_connection->real_escape_string(Util\sanitizeText($pword_confirm));
-
-        $status = FALSE;
-
-        // Check for username length and new password match
-        if (strlen($uname) < 6 || $clean_password1 !== $clean_password2) {
-          return $status;
-        }
-
-        // If connection is ok, do SQL operation
-        if ($db_connection->connect_errno != 0) {
-          $pshash = password_hash($clean_password1, PASSWORD_BCRYPT); // Securely hash password by BCrypt
-          $userdesc = "A fellow user.";
-
-          // Attempt to create a new account entry in DB
-          $status = $db_connection->query("INSERT INTO Users VALUES ('" . $clean_username . "', '" . $pshash . "', '" . $userdesc . "')");
-        }
-
-        return $status;
+      if ($signup_ok) {
+        echo "<div><a class=\"nav-link\" href=\"/login.php\">Login!</a></div>";
+      } else if ($signup_ok === FALSE) {
+        echo "<div><p>Invalid username or password.</p><a class=\"nav-link\" href=\"/homepage.html\">Home</a></div>";
+      } else {
+        echo "<p>Follow the tips above.</p>";
       }
-
-      /* Postback */
-      if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
-
-        // get form data
-        $raw_username = $_POST['username'];
-        $raw_pword1 = $_POST['psword1'];
-        $raw_pword2 = $_POST['psword2'];
-
-        // attempt to create a new account
-        $signup_ok = tryRegister($db_con, $raw_username, $raw_pword1, $raw_pword2);
-
-        // Close mySQL connection
-        $db_con->close();
-
-        // if the registration worked, echo login link HTML!
-        if ($signup_ok) {
-          echo "<div><a class=\"nav-link\" href=\"/login.php\">Login!</a></div>";
-        } else {
-          echo "<div><p>Invalid username or password.</p></div>";
-        }
-      }
-
       ?>
     </section>
   </main>
   <!-- JS -->
-  <script src="public/js/validate_signup.js"></script>
+  <script src="./public/js/validate_signup.js"></script>
 </body>
 
 </html>
