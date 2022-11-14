@@ -61,7 +61,7 @@ function createSession(&$db_connection, $uname, $ssn_id_value) {
     return $create_ssn_ok;
   }
 
-  $sql = "INSERT INTO Ssns VALUES ('" . $ssn_id_value . "', '" . $uname . "')";
+  $sql = "INSERT INTO ssns VALUES ('" . $ssn_id_value . "', '" . $uname . "')";
   setcookie("ssnID", $ssn_id_value, 0, "/", "", FALSE, TRUE);
   
   $create_ssn_ok = $db_connection->query($sql);
@@ -79,7 +79,7 @@ function destroySession(&$db_connection, $uname) {
     return;
   }
 
-  $db_connection->query("DELETE FROM Ssns WHERE username='" . $uname . "'"); // clear DB session on back-end DB!
+  $db_connection->query("DELETE FROM ssns WHERE username='" . $uname . "'"); // clear DB session on back-end DB!
   setcookie("ssnID", "none"); // clear ssnID cookie for client!
 }
 
@@ -97,7 +97,7 @@ function matchSessionID(&$db_connection, $ssn_id_value) {
     return $ssn_user;
   }
 
-  $sql = "SELECT FROM Ssns WHERE ssnid='".$ssn_id_value."'";
+  $sql = "SELECT FROM ssns WHERE ssnid='".$ssn_id_value."'";
 
   $query_result = $db_connection->query($sql);
 
@@ -111,6 +111,4 @@ function matchSessionID(&$db_connection, $ssn_id_value) {
 
   return $ssn_user;
 }
-
-exit(0);
 ?>

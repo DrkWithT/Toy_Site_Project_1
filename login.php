@@ -25,7 +25,7 @@ function checkLogin(&$db_con, $uname, $pword) {
   if ($db_con->connect_errno != 0) {
     $phash = password_hash($pword, PASSWORD_BCRYPT);
 
-    $query_result = $db_con->query("SELECT passhash FROM Users WHERE username = '" . $uname . "'");
+    $query_result = $db_con->query("SELECT * FROM users WHERE username = '" . $uname . "'");
   } else {
     $status = 1; // when connect error code is set, it will not be overwritten!
   }

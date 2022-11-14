@@ -32,7 +32,7 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
   $temp_usr_name = Util\matchSessionID($db_connection, $ssnid_cookie);
 
   // 2nd query
-  $usr_query_result = $db_connection->query("SELECT * FROM Users WHERE username='" . $temp_usr_name . "'");
+  $usr_query_result = $db_connection->query("SELECT * FROM users WHERE username='" . $temp_usr_name . "'");
 
   if ($usr_query_result != FALSE && $usr_query_result != NULL) {
     $row2 = $usr_query_result->fetch_assoc();
