@@ -56,7 +56,7 @@ if (!isset($_COOKIE['ssnID'])) {
 } else if ($_COOKIE['ssnID'] == "none") {
   Util\redirectToPage(Util\SERVER_HOST_STR, "");
 } else {
-  $basic_data = fetchUserData($db_con, $_COOKIE['sessionID']);
+  $basic_data = fetchUserData($db_con, $_COOKIE['ssnID']);
 }
 
 $db_con->close();
@@ -91,29 +91,15 @@ $db_con->close();
   <main id="scrollable">
     <!-- Info -->
     <section class="description-section">
-      <h3 class="section-heading">
-        <?php
-          if (isset($basic_data['uname'])) {
-            echo $basic_data['uname']."'s Page";
-          } else {
-            echo "User's Page";
-          }
-        ?>
-      </h3>
+      <h3 class="section-heading">Your Page</h3>
       <div class="side-img-box">
         <div>
-          <!-- <p>
+          <p>
             Welcome back to your user homepage. Here, you can jump to private pages to post, preview, or delete your poems.
             Deleting one of your poems is <em>irreversible!</em> Posting a new poem will upload a new poem directly, but posting onto an existing poem by you will replace the old text. (Work in progress.)
-          </p> -->
+          </p>
           <p>
-            <?php
-              if (isset($basic_data['uprofile'])) {
-                echo $basic_data['uprofile'];
-              } else {
-                echo "Blank profile!";
-              }
-            ?>
+            Profiles are not yet available. Sorry for the inconvenience.
           </p>
         </div>
         <div>
