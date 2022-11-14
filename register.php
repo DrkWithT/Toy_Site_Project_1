@@ -36,11 +36,12 @@
             <label class="form-label" for="username-field">Setup Username</label>
             <input id="username-field" class="form-field" name="username" type="text" minlength="6" maxlength="36" required>
             <label class="form-label" for="password-field">Setup Password</label>
-            <input id="password-field" class="form-field" name="psword1" type="text" minlength="12" maxlength="48" required>
+            <input id="password-field" class="form-field" name="psword1" type="password" minlength="12" maxlength="48" required>
             <label class="form-label" for="pwconfirm-field">Confirm Password</label>
-            <input id="pwconfirm-field" class="form-field" name="psword2" type="text" minlength="12" maxlength="48" required>
-            <input id="submit-btn" type="submit" value="Submit" disabled>
+            <input id="pwconfirm-field" class="form-field" name="psword2" type="password" minlength="12" maxlength="48" required>
+            <input id="submit-btn" type="submit" value="Submit">
           </form>
+          <p id="form-msg">Enter inputs.</p>
         </div>
         <div>
           <img class="side-img" alt="bookshelf image" src="./public/img/noble_bookshelf_flickr.png">
@@ -54,8 +55,8 @@
        * TODO: Finish and integrate tryRegister function!
        */
 
-      /* Imports */
-      use Util;
+       /* Import Namespace */
+       use function Util\sanitizeText;
 
       /* Helper Functions */
       /**
@@ -68,9 +69,9 @@
        */
       function tryRegister(&$db_connection, $uname, $pword_original, $pword_confirm)
       {
-        $clean_username = $db_connection->real_escape_string(Util\sanitizeText($uname));
-        $clean_password1 = $db_connection->real_escape_string(Util\sanitizeText($pword_original));
-        $clean_password2 = $db_connection->real_escape_string(Util\sanitizeText($pword_confirm));
+        $clean_username = $db_connection->real_escape_string(sanitizeText($uname));
+        $clean_password1 = $db_connection->real_escape_string(sanitizeText($pword_original));
+        $clean_password2 = $db_connection->real_escape_string(sanitizeText($pword_confirm));
 
         $status = FALSE;
 
