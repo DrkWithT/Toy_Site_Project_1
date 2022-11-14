@@ -5,8 +5,11 @@
  * Derek Tan
  */
 
-/* Imports */
-use Util;
+/* Import Util Funcs */
+use function Util\sanitizeText;
+use function Util\matchSessionID;
+use function Util\redirectToPage;
+use function Util\createSession;
 
 /**
  * A helper function for checking a username with a password before any further action.
@@ -56,23 +59,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // check if user is already logged on for a redirect home
   if (isset($_COOKIE['ssnID'])) {
-    if (Util\matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
-      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+    if (matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
+      redirectToPage(Util\SERVER_HOST_STR, "user.php");
     }
   }
 
   $raw_username = $POST['username'];
   $raw_password = $POST['password'];
 
-  $clean_username = $db_con->real_escape_string(Util\sanitizeText($raw_username));
-  $clean_password = $db_con->real_escape_string(Util\sanitizeText($raw_password));
+  $clean_username = $db_con->real_escape_string(sanitizeText($raw_username));
+  $clean_password = $db_con->real_escape_string(sanitizeText($raw_password));
 
   // authenticate user based on their login info
   $login_status = checkLogin($db_con, $clean_username, $clean_password);
   $recorded_ssn = FALSE; 
 
   if ($login_status == 0) {
-    $recorded_ssn = Util\createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
+    $recorded_ssn = createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
   }
   
   $db_con->close();
@@ -88,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       echo "Invalid login data!";
       break;
     default:
-      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+      redirectToPage(Util\SERVER_HOST_STR, "user.php");
       break;
   }
 }
@@ -141,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
               <input id="submit-btn" type="submit" value="Log In">
             </div>
           </form>
-          <p id="form-msg">Enter login.</p>
         </div>
         <div>
           <img class="side-img" alt="bookshelf image" src="./public/img/noble_bookshelf_flickr.png">

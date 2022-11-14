@@ -47,15 +47,19 @@
      * Derek Tan
      */
 
-    use Util;
+    /* Import Util Funcs */
+    use function Util\matchSessionID;
+    use function Util\destroySession;
+    use function Util\redirectToPage;
+
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
-      $ssn_uname = Util\matchSessionID($db_con, $_COOKIE['ssnID']);
+      $ssn_uname = matchSessionID($db_con, $_COOKIE['ssnID']);
 
       if ($ssn_uname != "none") {
-        Util\destroySession($db_con, $ssn_uname);
+        destroySession($db_con, $ssn_uname);
       } else {
         echo "<p><strong>Invalid session info!</strong></p>";
         sleep(1);
@@ -63,7 +67,7 @@
 
       $db_con->close();
 
-      Util\redirectToPage(Util\SERVER_HOST_STR, "");
+      redirectToPage(Util\SERVER_HOST_STR, "");
     }
     ?>
   </main>
