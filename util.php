@@ -3,7 +3,7 @@
  * util.php
  * Contains misc. helper functions.
  * Derek Tan
- * NOTE: check if SQL DB for Ssns uses "sid" or "ssnid" for the ID string.
+ * NOTE: remove debugs. Check function matchSsnUser().
  */
 
 namespace Util; // Declare a module for other helper functions.
@@ -14,7 +14,7 @@ use mysqli;
 
 const DB_HOST_STR = "localhost";
 const DB_NAME = "poetplace";
-const SERVER_HOST_STR = "http://localhost:3000";
+const SERVER_HOST_STR = "http://localhost:3000/";
 const UNIQID_PREFIX = "A2cF4";
 
 /* Misc. Helpers */
@@ -101,10 +101,11 @@ function matchSessionID(&$db_connection, $ssn_id_value) {
 
   $query_result = $db_connection->query($sql);
 
-  if ($query_result !== FALSE) {
+  if ($query_result != FALSE) {
     $query_row = $query_result->fetch_assoc();
 
     if ($query_row != NULL) {
+      echo "Found uname."; // debug
       $ssn_user = $query_row['username'];
     }
   }
