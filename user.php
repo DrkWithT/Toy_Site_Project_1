@@ -6,8 +6,9 @@
  * TODO: See line 35!
  */
 
-/* Imports */
-use Util;
+/* Import Util Funcs */
+use function Util\matchSessionID;
+use function Util\redirectToPage;
 
 /* Shared Var (across PHP blocks) */
 $basic_data = NULL;
@@ -20,21 +21,32 @@ $basic_data = NULL;
  * @return array An associative array storing username and profile text.
  */
 function fetchUserData(&$db_connection, $ssnid_cookie) {
-  $query_result = NULL;
-  $result = [];
+  $result = [
+    "uname" => NULL,
+    "uprofile" => NULL
+  ]; // assoc array with named data: uname and udesc
+  
+  $usr_query_result = NULL; // for user data by username from query 1 within query 2
+  $temp_usr_name = NULL;
+  $temp_usr_desc = NULL;
 
-  if ($db_connection->connect_errno == 0) {
-    $query_result = $db_connection->query("SELECT * FROM Ssns WHERE ssnid='" . $ssnid_cookie . "'");
-  }
+  // 1st query (inside)
+  $temp_usr_name = matchSessionID($db_connection, $ssnid_cookie);
 
-  if ($query_result != FALSE) {
-    $row = $query_result->fetch_assoc();
+  // 2nd query
+  $usr_query_result = $db_connection->query("SELECT * FROM Users WHERE username='" . $temp_usr_name . "'");
 
-    if ($row != NULL) {
-      $result['uname'] = $row['username'];
-      $result['uprofile'] = $row['userdesc']; // TODO: change this field name based on real DB! 
+  if ($usr_query_result != FALSE && $usr_query_result != NULL) {
+    $row2 = $usr_query_result->fetch_assoc();
+
+    if ($row2 != NULL) {
+      $temp_usr_desc = $row2['userdesc'];
     }
   }
+
+  // set result data (NULL by default on any error!)
+  $result['uname'] = $temp_usr_name;
+  $result['uprofile'] = $temp_usr_desc;
 
   return $result;
 }
@@ -42,9 +54,9 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
 $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
 if (!isset($_COOKIE['ssnID'])) {
-  Util\redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
+  redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
 } else if ($_COOKIE['ssnID'] == "none") {
-  Util\redirectToPage(Util\SERVER_HOST_STR, "");
+  redirectToPage(Util\SERVER_HOST_STR, "");
 } else {
   $basic_data = fetchUserData($db_con, $_COOKIE['sessionID']);
 }
