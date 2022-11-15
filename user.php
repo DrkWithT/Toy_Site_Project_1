@@ -1,4 +1,5 @@
 <?php
+
 /**
  * user.php
  * Services a generic user's home page.
@@ -18,7 +19,8 @@ $basic_data = NULL;
  * @param string $ssnid_cookie The session identifier.
  * @return array An associative array storing username and profile text.
  */
-function fetchUserData(&$db_connection, $ssnid_cookie) {
+function fetchUserData(&$db_connection, $ssnid_cookie)
+{
   $result = [
     "uname" => NULL,
     "uprofile" => NULL
@@ -39,6 +41,8 @@ function fetchUserData(&$db_connection, $ssnid_cookie) {
 
     if ($row2 != NULL) {
       $temp_usr_desc = $row2['userdesc'];
+    } else {
+      $temp_usr_desc = "A user.";
     }
   }
 
@@ -91,15 +95,32 @@ $db_con->close();
   <main id="scrollable">
     <!-- Info -->
     <section class="description-section">
-      <h3 class="section-heading">Your Page</h3>
       <div class="side-img-box">
         <div>
+          <!-- Dynamic Username Heading -->
+          <h3 class="section-heading">
+            <?php
+            if (isset($basic_data['uname'])) {
+              echo $basic_data['uname'];
+            } else {
+              echo "Anonymous";
+            }
+            ?>
+          </h3>
           <p>
             Welcome back to your user homepage. Here, you can jump to private pages to post, preview, or delete your poems.
             Deleting one of your poems is <em>irreversible!</em> Posting a new poem will upload a new poem directly, but posting onto an existing poem by you will replace the old text. (Work in progress.)
           </p>
+          <!-- Dynamic Profile (from DB result) -->
+          <h3 class="section-heading">Profile</h3>
           <p>
-            Profiles are not yet available. Sorry for the inconvenience.
+            <?php
+            if (isset($basic_data['uprofile'])) {
+              echo $basic_data['uprofile'];
+            } else {
+              echo "<strong>Could not load profile.</strong>";
+            }
+            ?>
           </p>
         </div>
         <div>
