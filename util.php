@@ -21,8 +21,10 @@ const UNIQID_PREFIX = "A2cF4";
 
 /**
  * A helper function for redirecting to another page.
+ * @param string $host Server's IP or `localhost`.
+ * @param string $page The name of the page with file extension. Defaults to homepage.html!
  */
-function redirectToPage(string $host, string $page) {
+function redirectToPage($host, $page) {
   $temp = "";
 
   if (strlen($page) > 0) {
@@ -88,7 +90,7 @@ function destroySession(&$db_connection, $uname) {
  * If no such session exists with the given `ssnID` value, `"none"` is returned.
  * @param mysqli &$db_connection A reference to a SQL connection.
  * @param string $ssn_id_value A specific session ID string.
- * @return int `0` on success, `1` on SQL connection failure, `2` on login failure.
+ * @return string The username associated with the session ID.
  */
 function matchSessionID(&$db_connection, $ssn_id_value) {
   $ssn_user = "none";
@@ -97,7 +99,7 @@ function matchSessionID(&$db_connection, $ssn_id_value) {
     return $ssn_user;
   }
 
-  $sql = "SELECT FROM ssns WHERE ssnid='".$ssn_id_value."'";
+  $sql = "SELECT * FROM ssns WHERE ssnid='".$ssn_id_value."'";
 
   $query_result = $db_connection->query($sql);
 
@@ -105,7 +107,6 @@ function matchSessionID(&$db_connection, $ssn_id_value) {
     $query_row = $query_result->fetch_assoc();
 
     if ($query_row != NULL) {
-      echo "Found uname."; // debug
       $ssn_user = $query_row['username'];
     }
   }
