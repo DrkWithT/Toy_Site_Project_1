@@ -37,7 +37,6 @@ function checkLogin(&$db_con, $uname, $pword) {
   // Check for failing case of unmatching password hash. FIX!!
   if ($status == 0 && $query_row != NULL) {
     if (!password_verify($pword, $query_row['passhash'])) {
-      echo "Mismatch!"; // debug
       $status = 2;
     }
   } else if ($status != 1) {
@@ -55,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   if (isset($_COOKIE['ssnID'])) {
     if (Util\matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
       Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+      $db_con->close();
       exit(0);
     }
   }
@@ -67,10 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // authenticate user based on their login info
   $login_status = checkLogin($db_con, $clean_username, $clean_password);
-  $recorded_ssn = FALSE; 
 
   if ($login_status == 0) {
     $recorded_ssn = Util\createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
+
+    if (!$recorded_ssn) {
+      $login_status = 1; // an invalid ssn ID means an auth failure!
+    }
   }
   
   $db_con->close();
@@ -79,11 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   switch ($login_status) {
     case 1:
       setcookie("ssnID", "none");
-      echo "Unable to auth!";
+      echo "<p>Unable to auth!</p>";
       break;
     case 2:
       setcookie("ssnID", "none");
-      echo "Invalid login data!";
+      echo "<p>Invalid login data!</p>";
       break;
     default:
       Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
