@@ -34,7 +34,7 @@ function checkLogin(&$db_con, $uname, $pword) {
     $status = 2;
   }
 
-  // Check for failing case of unmatching password hash. FIX!!
+  // Check for failing case of unmatching password hash.
   if ($status == 0 && $query_row != NULL) {
     if (!password_verify($pword, $query_row['passhash'])) {
       $status = 2;
