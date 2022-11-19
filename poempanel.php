@@ -3,9 +3,13 @@
    * posting.php
    * This is the utility page for a user. Here, this PHP script handles posting new poems to the DB.
    * Derek Tan
-   * TODO: Refactor PHP with postback logic.
+   * TODO: Refactor PHP with postback logic. Logic must use
    */
   use Util;
+
+  function putUserPoem() {
+    
+  }
 
   // redirect logged in users to their pages
   // if (isset($_COOKIE['sessionID'])) {
