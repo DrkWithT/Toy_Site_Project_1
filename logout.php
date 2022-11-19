@@ -31,7 +31,7 @@
               <input id="confirm-field" class="form-field" name="quitword" type="text" maxlength="12" required>
             </div>
             <div class="form-item">
-              <input id="submit-btn" type="submit" value="Log In">
+              <input id="submit-btn" type="submit" value="Log Out">
             </div>
           </form>
         </div>
@@ -45,7 +45,6 @@
      * logout.php
      * Services logout for users.
      * Derek Tan
-     * TODO: Fix session bug: username session does not erase from DB! See destroySession().
      */
 
     require "./util.php";
