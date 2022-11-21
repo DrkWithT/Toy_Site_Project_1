@@ -209,7 +209,9 @@
           </p>
           <form id="post-form" class="page-form" action="/poempanel.php" method="post">
             <div id="poem-action-form">
-              <!-- Poem Panel Action: Publish / Delete -->
+              <!-- Poem Panel Action -->
+              <label class="form-label" for="poem-nop">None</label>
+              <input id="poem-nop" type="radio" name="action" checked> <!-- Default Choice -->
               <label class="form-label" for="poem-add">Publish</label>
               <input id="poem-add" type="radio" name="action">
               <label class="form-label" for="poem-del" value="publish">Delete</label>
@@ -223,7 +225,7 @@
             <div id="text-form">
               <!-- Poem Text -->
               <label class="form-label" for="poem-text">Text</label>
-              <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="48" required></textarea>
+              <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="48" maxlength="480" required></textarea>
             </div>
             <div id="poem-id-form">
               <!-- Poem ID Number (todo!) -->
