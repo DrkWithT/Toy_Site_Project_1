@@ -55,6 +55,7 @@ function fetchUserData(&$db_connection, $ssnid_cookie)
 
 $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
 
+/* Postback */
 if (!isset($_COOKIE['ssnID'])) {
   Util\redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
 } else if (strcmp($_COOKIE['ssnID'], "none") == 0) {
@@ -84,9 +85,8 @@ $db_con->close();
   <header>
     <h1 id="site-title">A Poet's Place</h1>
     <nav>
-      <!-- TODO: write a "read" page which gives 5 random poems! -->
-      <!-- <a class="nav-link" href="/works.php">Read</a> -->
       <a class="nav-link" href="/poempanel.php">Manage</a>
+      <a class="nav-link" href="/works.php">Read</a>
       <a class="nav-link" href="/logout.php">Logout</a>
     </nav>
   </header>
