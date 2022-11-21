@@ -31,15 +31,15 @@
   function handlePoemGets(&$db_connection, $ssn_uname) {
     $results = NULL;
 
-    $con_ok = $db_connection->errno == 0; // check connection
+    $con_ok = $db_connection->connect_errno == 0; // check connection
     $fetch_result = TRUE;
 
     if ($con_ok) {
-      $fetch_result = $db_connection->query("SELECT id, title FROM works WHERE author='" . $ssn_uname);
+      $fetch_result = $db_connection->query("SELECT id, title FROM works WHERE author='" . $ssn_uname . "'");
     }
 
     if ($fetch_result != FALSE) {
-      $results = $fetch_result->fetch_array();
+      $results = $fetch_result->fetch_all(MYSQLI_NUM);
     }
 
     return $results;
@@ -61,7 +61,7 @@
 
     // status 1 on SQL connection problem overwrites default code 0!
     if ($con_ok) {
-      $lined_text = str_ireplace("*", "<br>", $clean_text);
+      $lined_text = str_ireplace("*%0A", "<br>", $clean_text);
 
       if (strlen($lined_text) <= 480) { 
         $adding_status = $db_connection->query("INSERT INTO works (title, author, prose) VALUES ('"
@@ -134,14 +134,14 @@
     exit(0);
   }
 
+  $usr_work_list = handlePoemGets($db_con, $ssn_usr_name); // fetch any works by the user (likely a member?)
+
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // get form data
     $panel_action = $_POST['action'];
     $cleaned_title = sanitizeText($_POST['title']);
     $cleaned_text = sanitizeText($_POST['text']);
     $cleaned_id = $_POST['pid'];
-    
-    $usr_work_list = handlePoemGets($db_con, $ssn_usr_name); // fetch any works by the user (likely a member?)
 
     // execute user panel action
     if (strcmp($panel_action, "publish") == 0) {
@@ -214,13 +214,13 @@
           <p>
             This is the place to post or delete a poem. If you post, a poem must be titled and at least 48 characters long. Also, separate lines must be ended by <code>*</code>.
           </p>
-          <form id="post-form" class="page-form" action="/poempanel.php" method="post">
+          <form id="post-form" class="page-form" action="/poempanel.php" method="POST">
             <div id="poem-action-form">
               <!-- Poem Panel Action -->
               <label class="form-label" for="poem-nop">None</label>
-              <input id="poem-nop" type="radio" name="action" checked> <!-- Default Choice -->
+              <input id="poem-nop" type="radio" name="action" value="nop">
               <label class="form-label" for="poem-add">Publish</label>
-              <input id="poem-add" type="radio" name="action">
+              <input id="poem-add" type="radio" name="action" value="publish">
               <label class="form-label" for="poem-del" value="publish">Delete</label>
               <input id="poem-del" type="radio" name="action" value="delete">
             </div>
@@ -232,7 +232,7 @@
             <div id="text-form">
               <!-- Poem Text -->
               <label class="form-label" for="poem-text">Text</label>
-              <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="48" maxlength="480" required></textarea>
+              <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="48" maxlength="480" rows="12" cols="20" required></textarea>
             </div>
             <div id="poem-id-form">
               <!-- Poem ID Number (todo!) -->
@@ -255,15 +255,17 @@
         <?php
           /* Note: Works by this session's user echo here. */ 
           if ($usr_work_list != NULL) {
-            if (count($usr_work_list) > 0) {
-              foreach ($usr_work_list as $work_brief) {
-                echo "<li>" . $work_brief['id'] . "&nbsp;\"" . $work_brief['title'] . "\"</li>"; 
+            $works_count = count($usr_work_list);
+
+            if ($works_count > 0) {
+              foreach($usr_work_list as $key => $current_work) {
+                echo "<li>Work " . $current_work[0] . " is \"" . $current_work[1] . "\"</li>"; 
               }
             } else {
-              echo "<li>Nothing here!</li>";
+              echo "<li>Nothing written yet!</li>";
             }
           } else {
-            echo "<li>Nothing here!</li>";
+            echo "<li>Nothing found!</li>";
           }
         ?>
       </ul>
