@@ -85,8 +85,15 @@
   function handlePoemDel(&$db_connection, $ssn_uname, $target_poem_id) {
     $status_code = 0;
 
+    $arg_ok = $target_poem_id > 0;
     $con_ok = $db_connection->errno == 0;
     $delete_status = TRUE;
+
+    // NOTE: validate parameter in case of user forced garbage input!
+    if (!$arg_ok) {
+      $status_code = -1;
+      return $status_code;
+    }
 
     if ($con_ok) {
       $delete_status = $db_connection->query("DELETE FROM works WHERE id=" . $target_poem_id . " AND author='" . $ssn_uname . "'");
@@ -102,7 +109,6 @@
   }
 
   /* Postback */
-
   // Do not accept unauthorized guests!
   if (!isset($_COOKIE['ssnID'])) {
     redirectToPage(Util\SERVER_HOST_STR, "");
@@ -129,6 +135,7 @@
     $panel_action = $_POST['action'];
     $cleaned_title = sanitizeText($_POST['title']);
     $cleaned_text = sanitizeText($_POST['text']);
+    $cleaned_id = $_POST['pid'];
     
     $usr_work_list = handlePoemGets($db_con, $ssn_usr_name); // fetch any works by the user (likely a member?)
 
@@ -161,6 +168,9 @@
     <?php
       /* Note: Any reported backend error echoes here. */
       switch ($msg_code) {
+        case -1:
+          echo "<p><strong>Err: Invalid inputs.</strong></p>";
+          break;
         case 1:
           echo "<p><strong>Err: We could not connect to our DB.</strong></p>";
           break;
@@ -175,7 +185,9 @@
       }
     ?>
     <nav>
-      <a href="user.php">User Page</a>
+      <a class="nav-link" href="/user.php">User</a>
+      <a class="nav-link" href="/works.php">Read</a>
+      <a class="nav-link" href="/logout.php">Logout</a>
     </nav>
   </header>
   <!-- Side Nav Index -->
@@ -241,6 +253,8 @@
             } else {
               echo "<li>Nothing here!</li>";
             }
+          } else {
+            echo "<li>Nothing here!</li>";
           }
         ?>
       </ul>
