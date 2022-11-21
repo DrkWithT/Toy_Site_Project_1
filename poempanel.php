@@ -166,10 +166,13 @@
   <header>
     <h1 id="site-title">A Poet's Place</h1>
     <?php
-      /* Note: Any reported backend error echoes here. */
+      /* Note: Any reported backend msg echoes here. */
       switch ($msg_code) {
         case -1:
           echo "<p><strong>Err: Invalid inputs.</strong></p>";
+          break;
+        case 0:
+          echo "<p><strong>Action successful.</strong></p>";
           break;
         case 1:
           echo "<p><strong>Err: We could not connect to our DB.</strong></p>";
