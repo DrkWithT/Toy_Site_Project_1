@@ -23,7 +23,7 @@
   function handlePoemSearch(&$db_connection, $start, $end) {
     $result = [];
 
-    $con_ok = $db_connection->errno == 0;
+    $con_ok = $db_connection->connect_errno == 0;
     $query_raw_data = NULL;
 
     if ($con_ok) {
@@ -31,7 +31,7 @@
     }
 
     if ($query_raw_data != NULL) {
-      $result = $query_raw_data->fetch_array();
+      $result = $query_raw_data->fetch_all(MYSQLI_NUM);
     }
 
     return $result;
@@ -96,7 +96,9 @@
           </h3>
           <!-- Search Form -->
           <form method="GET" action="works.php">
-            <!-- todo -->
+            <label class="form-label" for="poem-id-field">Start ID</label>
+            <input id="poem-id-field" class="form-field" name="startid" type="number" min="0" value="0">
+            <input id="submit-btn" type="submit" value="Search">
           </form>
         </div>
         <div>
@@ -112,9 +114,9 @@
           if ($fetched_works != NULL) {
             if (count($fetched_works) > 0) {
               foreach ($fetched_works as $poem_data) {
-                echo "<h4>" . $poem_data['title'] . "</h5>";
-                echo "<h5>By " . $poem_data['author'] . "</h5>";
-                echo "<p>" . $poem_data['prose'] . "</p>";
+                echo "<h3>" . $poem_data[0] . "</h3>";
+                echo "<h4>By " . $poem_data[1] . "</h4>";
+                echo "<p>" . $poem_data[2] . "</p>";
               }
             } else {
               "<p>No results!</p>";
