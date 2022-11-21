@@ -193,8 +193,8 @@
   <!-- Side Nav Index -->
   <div id="side-nav">
     <a class="side-nav-link" href="#">To Top</a>
-    <a class="side-nav-link" href="#posting-area">Jump To Post</a>
-    <a class="side-nav-link" href="#deleting-area">Jump To Delete</a>
+    <a class="side-nav-link" href="#posting-area">To Post</a>
+    <a class="side-nav-link" href="#list-area">To List</a>
   </div>
   <main id="scrollable">
     <!-- Info -->
@@ -243,7 +243,7 @@
       </div>
     </section>
     <section class="description-section">
-      <h3 class="section-heading">Your Works</h3>
+      <h3 id="list-area" class="section-heading">Your Works</h3>
       <ul>
         <?php
           /* Note: Works by this session's user echo here. */ 
