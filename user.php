@@ -57,7 +57,7 @@ $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME
 
 if (!isset($_COOKIE['ssnID'])) {
   Util\redirectToPage(Util\SERVER_HOST_STR, ""); // redirect all visitors to homepage
-} else if ($_COOKIE['ssnID'] == "none") {
+} else if (strcmp($_COOKIE['ssnID'], "none") == 0) {
   Util\redirectToPage(Util\SERVER_HOST_STR, "");
 } else {
   $basic_data = fetchUserData($db_con, $_COOKIE['ssnID']);
@@ -85,10 +85,8 @@ $db_con->close();
     <h1 id="site-title">A Poet's Place</h1>
     <nav>
       <!-- TODO: write a "read" page which gives 5 random poems! -->
-      <!-- <a class="nav-link" href="/readpoems.php">Read</a> -->
-      <!-- <a class="nav-link" href="/posting.php">Post</a> -->
-      <!-- <a class="nav-link" href="#">Review</a> -->
-      <!-- <a class="nav-link" href="#">Delete</a> -->
+      <!-- <a class="nav-link" href="/works.php">Read</a> -->
+      <a class="nav-link" href="/poempanel.php">Manage</a>
       <a class="nav-link" href="/logout.php">Logout</a>
     </nav>
   </header>
@@ -99,6 +97,7 @@ $db_con->close();
         <div>
           <!-- Dynamic Username Heading -->
           <h3 class="section-heading">
+            Welcome,&nbsp;
             <?php
             if (isset($basic_data['uname'])) {
               echo $basic_data['uname'];
@@ -108,8 +107,8 @@ $db_con->close();
             ?>
           </h3>
           <p>
-            Welcome back to your user homepage. Here, you can jump to private pages to post, preview, or delete your poems.
-            Deleting one of your poems is <em>irreversible!</em> Posting a new poem will upload a new poem directly, but posting onto an existing poem by you will replace the old text. (Work in progress.)
+            Welcome back to your user homepage. Here, you can go to user-only pages!
+            Deleting one of your poems is <em>irreversible!</em> Posting a new poem will upload a new poem directly, but trying to post onto an existing poem by you will fail. (Work in progress.)
           </p>
           <!-- Dynamic Profile (from DB result) -->
           <h3 class="section-heading">Profile</h3>
