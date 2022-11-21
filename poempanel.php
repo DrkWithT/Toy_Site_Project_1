@@ -57,12 +57,16 @@
     $status_code = 0;
 
     $con_ok = $db_connection->connect_errno == 0;
-    $adding_status = TRUE;
+    $adding_status = FALSE;
 
     // status 1 on SQL connection problem overwrites default code 0!
     if ($con_ok) {
-      $adding_status = $db_connection->query("INSERT INTO works (title, author, prose) VALUES ('"
-      . $clean_title . "', '" . $ssn_uname . "', '" . $clean_text . "')"); // id is omitted since it's auto incremented!
+      $lined_text = str_ireplace("*", "<br>", $clean_text);
+
+      if (strlen($lined_text) <= 480) { 
+        $adding_status = $db_connection->query("INSERT INTO works (title, author, prose) VALUES ('"
+        . $clean_title . "', '" . $ssn_uname . "', '" . $lined_text . "')"); // id is omitted since it's auto incremented!
+      }
     } else {
       $status_code = 1;
     }
@@ -208,7 +212,7 @@
       <div class="side-img-box">
         <div>
           <p>
-            This is the place to post or delete a poem. If you post, a poem must be titled and at least 48 characters long.
+            This is the place to post or delete a poem. If you post, a poem must be titled and at least 48 characters long. Also, separate lines must be ended by <code>*</code>.
           </p>
           <form id="post-form" class="page-form" action="/poempanel.php" method="post">
             <div id="poem-action-form">
