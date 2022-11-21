@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           <form id="login-form" class="page-form" method="POST" action="/login.php">
             <div class="form-item">
               <label class="form-label" for="username-field">Username</label>
-              <input id="username-field" class="form-field" name="username" type="text" maxlength="32" minlength="8" required>
+              <input id="username-field" class="form-field" name="username" type="text" maxlength="36" minlength="8" required>
             </div>
             <div class="form-item">
               <label class="form-label" for="password-field">Password</label>
