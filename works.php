@@ -1,12 +1,14 @@
 <?php
   /**
    * works.php
-   * Services the poem viewing page. Users can only view 5 works at a time.
+   * Services the poem viewing page. Users can only view 5 works at a time, from a starting query ID to a hidden end ID.
    */
 
-  require "util.php";
+  require "./utils/util.php";
+  require "./utils/htmlgen.php";
 
   use function Util\matchSessionID;
+  use function PrintUtils\printPoemDiv;
 
   /* Shared Vars */
   $ssn_usr_name = NULL;  // Shared Var: The session user. Means "Anonymous" by default!
@@ -62,6 +64,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
+  <link href="./public/css/works.css" rel="stylesheet">
   <title>A Poet's Place - Works</title>
 </head>
 <body>
@@ -114,9 +117,7 @@
           if ($fetched_works != NULL) {
             if (count($fetched_works) > 0) {
               foreach ($fetched_works as $poem_data) {
-                echo "<h3>" . $poem_data[0] . "</h3>";
-                echo "<h4>By " . $poem_data[1] . "</h4>";
-                echo "<p>" . $poem_data[2] . "</p>";
+                echo printPoemDiv($poem_data[0], $poem_data[1] , $poem_data[2]);
               }
             } else {
               "<p>No results!</p>";

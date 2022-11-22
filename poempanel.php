@@ -5,11 +5,13 @@
    * Derek Tan
    */
 
-  require "./util.php";
+  require "./utils/util.php";
+  require "./utils/htmlgen.php";
 
   use function Util\matchSessionID;
   use function Util\redirectToPage;
   use function Util\sanitizeText;
+  use function PrintUtils\printPoemLI;
 
   /* Shared Vars */
   $ssn_usr_name = NULL;   // Shared Var for PHP page: Pre-fetched username for session
@@ -259,7 +261,7 @@
 
             if ($works_count > 0) {
               foreach($usr_work_list as $key => $current_work) {
-                echo "<li>Work " . $current_work[0] . " is \"" . $current_work[1] . "\"</li>"; 
+                echo printPoemLI($current_work[0], $current_work[1]);
               }
             } else {
               echo "<li>Nothing written yet!</li>";
