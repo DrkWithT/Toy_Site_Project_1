@@ -2,6 +2,9 @@
 ## CSCI 12 Website Project: "A Poet's Place"
 ## By: Derek Tan
 
+### Sumamry:
+This is a _tentative_ outline of my final, _toy_ project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or others. There, users can write, post, or manage their work in other ways. The notes below will elaborate the details.
+
 ### General Info:
   - Frontend Languages: HTML, CSS 3, JS
   - Backend Tech: XAMPP with PHP 8.0+
@@ -17,9 +20,6 @@
  6. Select "Admin" for "mySQL".
  7. Using "phpMyAdmin" on `localhost`, construct a database named `poetplace` with the tables described in Features Part 2.
  8. Open the project folder in the editor. Right click `homepage.html` and select "Serve PHP Project".
-
-### Sumamry:
-This is a _tentative_ outline of my final, _toy_ project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or others. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
 
 ### Features:
  1. **Basic User Authentication**:
