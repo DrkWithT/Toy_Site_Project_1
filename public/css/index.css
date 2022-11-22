@@ -132,6 +132,15 @@ h3.section-heading {
   text-decoration: underline;
 }
 
+h4#error-banner {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  padding: 8px;
+  background-color: rgb(45, 45, 45);
+  color: #c95757;
+}
+
 div.side-img-box {
   display: grid;
   grid-template-columns: auto auto;
@@ -171,6 +180,6 @@ footer {
 
 code {
   font-family: Courier, monospace;
-  background-color: #bca494;
+  background-color: rgb(45, 45, 45);
   color: #c95757;
 }
