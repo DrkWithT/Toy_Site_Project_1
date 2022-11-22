@@ -173,19 +173,19 @@
       /* Note: Any reported backend msg echoes here. */
       switch ($msg_code) {
         case -1:
-          echo "<p><strong>Err: Invalid inputs.</strong></p>";
+          echo "<h4 id=\"error-banner\">Err: Invalid inputs.</h4>";
           break;
         case 0:
-          echo "<p><strong>Action successful.</strong></p>";
+          echo "<h4 id=\"error-banner\">Load successful!</h4>";
           break;
         case 1:
-          echo "<p><strong>Err: We could not connect to our DB.</strong></p>";
+          echo "<h4 id=\"error-banner\">Err: The database is unreachable.</h4>";
           break;
         case 2:
-          echo "<p><strong>Err: We ran into a DB problem.</strong></p>";
+          echo "<h4 id=\"error-banner\">Err: We had a database problem.</h4>";
           break;
         case 3:
-          echo "<p><strong>Err: Invalid app action.</strong></p>";
+          echo "<h4 id=\"error-banner\">Err: Invalid app action.</h4>";
           break;
         default:
           break;
