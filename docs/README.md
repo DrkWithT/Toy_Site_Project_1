@@ -6,26 +6,27 @@
   - Frontend Languages: HTML, CSS 3, JS
   - Backend Tech: XAMPP with PHP 8.0+
   - Version Control: Git for Windows
+  - TIP: In _Visual Studio Code_, right click this file's editor tab and select "Open Preview".
 
 ### How to Use:
  1. Install _XAMPP_ for your computer.
- 2. Install the _Visual Studio Code_ editor on your computer.
- 3. Then, install the _PHP Intelliphense_ and _PHP Server_ extension.
- 4. Clone this repo to download locally or get this project folder.
+ 2. Then install the _Visual Studio Code_ editor on your computer.
+ 3. After installing VSCode, install the _PHP Intelliphense_ and _PHP Server_ editor extension.
+ 4. Clone this repo to download locally. Or get this project folder as a zip to unzip later.
  5. Run the _XAMPP Control Panel_ as administrator or superuser.
  6. Select "Admin" for "mySQL".
- 7. Using phpMyAdmin on `localhost`, construct a database named `poetplace` with the tables described in Features, section 2.
- 8. Right click `homepage.html` and select "Serve PHP Project".
+ 7. Using "phpMyAdmin" on `localhost`, construct a database named `poetplace` with the tables described in Features Part 2.
+ 8. Open the project folder in the editor. Right click `homepage.html` and select "Serve PHP Project".
 
 ### Sumamry:
 This is a _tentative_ outline of my final, _toy_ project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or others. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
 
 ### Features:
- 1. Basic User Authentication:
+ 1. **Basic User Authentication**:
     - Signup: Needs a username, original password, and confirm a password.
     - Logging In: Needs a valid username and password. Password is at least 12 characters long with uppercase, lowercase, and numeric characters. Punctuation characters are necessary too: `'$', '!', '.'`.
     - Logging Out: The server-side scripts handle log out requests by clearing session ID cookies and a session DB entry for a specific user doing so. A redirect to the homepage occurs anyway.
- 2. Database for User Data:
+ 2. **Database**:
     - _users_: Maps `VARCHAR(60) username` to `VARCHAR(255) passhash` along with some `VARCHAR(300) userdesc`.
     - _works_: Maps `INTEGER id` to `VARCHAR(48) title, VARCHAR(60) author, VARCHAR(480) prose`.
       - The poem ID is `PRIMARY KEY` with `AUTO_INCREMENT`.
