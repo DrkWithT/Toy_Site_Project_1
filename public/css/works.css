@@ -1,0 +1,27 @@
+/*
+  works.css
+  Styling for dynamic poem content on pages.
+  Derek Tan 
+*/
+
+div.work-section {
+  display: block;
+  padding: 8px;
+  border-left-width: 2px;
+  border-left-style: solid;
+  border-left-color: #dce2ba;
+  background-color: #dce2ba;
+  color: inherit;
+  transition: border-left-color 0.25s;
+}
+
+div.work-section:hover {
+  border-left-color: #c0d6a7;
+}
+
+p.work-content {
+  display: block;
+  margin: 0;
+  padding: 8px 4px;
+  color: inherit;
+}
