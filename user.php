@@ -7,7 +7,7 @@
  * TODO: See line 35!
  */
 
-require "./util.php";
+require "./utils/util.php";
 
 /* Shared Var (across PHP blocks) */
 $basic_data = NULL;

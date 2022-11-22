@@ -5,7 +5,7 @@
  * Derek Tan
  */
 
-require "./util.php";
+require "./utils/util.php";
 
 /**
  * A helper function for checking a username with a password before any further action.

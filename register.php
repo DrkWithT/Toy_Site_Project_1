@@ -5,7 +5,7 @@
  * Derek Tan
  */
 
-require "util.php";
+require "./utils/util.php";
 
 $signup_ok = NULL;
 

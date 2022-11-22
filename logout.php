@@ -47,7 +47,7 @@
      * Derek Tan
      */
 
-    require "./util.php";
+    require "./utils/util.php";
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $db_con = new mysqli(Util\DB_HOST_STR, "HelperUser1", "ZA4b_3c7D?", Util\DB_NAME);  // connect to DB first
