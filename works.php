@@ -82,6 +82,11 @@
       ?>
     </nav>
   </header>
+  <!-- Side Nav -->
+  <div id="side-nav">
+    <a class="side-nav-link" href="#">To Top</a>
+    <a class="side-nav-link" href="#work-panels">To Poems</a>
+  </div>
   <main id="scrollable">
     <section class="description-section">
       <div class="side-img-box">
