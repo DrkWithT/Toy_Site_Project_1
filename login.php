@@ -7,6 +7,8 @@
 
 require "./utils/util.php";
 
+$banner_msg_code = 0; // Shared Var: code for diplaying login status in page HTML.
+
 /**
  * A helper function for checking a username with a password before any further action.
  * @param mysqli $db_con A reference to a SQL connection object.
@@ -81,12 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   // log error message to client
   switch ($login_status) {
     case 1:
-      setcookie("ssnID", "none");
-      echo "<p>Unable to auth!</p>";
-      break;
     case 2:
       setcookie("ssnID", "none");
-      echo "<p>Invalid login data!</p>";
+      $banner_msg_code = $login_status;
       break;
     default:
       Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
@@ -97,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <link href="./public/css/forms.css" rel="stylesheet">
   <title>A Poet's Place - Login</title>
 </head>
-
 <body>
   <!-- Header and Nav -->
   <header>
@@ -142,6 +139,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
               <input id="submit-btn" type="submit" value="Log In">
             </div>
           </form>
+          <?php
+            switch ($login_status) {
+              case 1:
+                echo "<p>Unable to authenticate.</p>";
+                break;
+              case 2:
+                echo "<p>Invalid login data!</p>";
+                break;
+              default:
+                echo "<p>Unknown Error!</p>";
+                break;
+            }
+          ?>
         </div>
         <div>
           <img class="side-img" alt="bookshelf image" src="./public/img/noble_bookshelf_flickr.png">
@@ -149,8 +159,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       </div>
     </section>
   </main>
-  <!-- JS -->
-  <!-- none for now! -->
 </body>
-
 </html>
