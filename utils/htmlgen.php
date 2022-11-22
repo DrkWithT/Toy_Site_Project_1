@@ -9,16 +9,14 @@
   /* Constants */
   const BEG_LI = "<li>";
   const END_LI = "</li>";
-
   const BEG_POEM_DIV = "<div class=\"work-section\">";
   const END_DIV = "</div>";
-
   const BEG_TITLING = "<h4>";
   const END_TITLING = "</h4>";
-
   const BEG_PAR = "<p class=\"work-content\">";
   const END_PAR = "</p>";
 
+  /* Helper Funcs */
   function printPoemDiv(string $title, string $author, string $text) {
     // open div html
     $result = BEG_POEM_DIV;
