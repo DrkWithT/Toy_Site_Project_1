@@ -97,6 +97,9 @@
               }
             ?>
           </h3>
+          <p>
+            Search for five poems at a time using the form below. The ID is the first of the five to be fetched.
+          </p>
           <!-- Search Form -->
           <form method="GET" action="works.php">
             <label class="form-label" for="poem-id-field">Start ID</label>
@@ -111,7 +114,7 @@
     </section>
     <section class="description-section">
       <h3 class="section-heading">Results</h3>
-      <ul>
+      <div id="work-panels">
         <?php
           /* Note: Dynamically show poem text here. */
           if ($fetched_works != NULL) {
@@ -126,7 +129,7 @@
             echo "<p>No results!</p>";
           }
         ?>
-      </ul>
+      </div>
     </section>
   </main>
 </body>

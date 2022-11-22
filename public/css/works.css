@@ -4,10 +4,19 @@
   Derek Tan 
 */
 
+div#work-panels {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 8px;
+  padding: 8px 4px;
+  border-top: 2px solid #c0d6a7;
+}
+
 div.work-section {
   display: block;
-  padding: 8px;
-  border-left-width: 2px;
+  margin: 8px;
+  padding: 4px;
+  border-left-width: 4px;
   border-left-style: solid;
   border-left-color: #dce2ba;
   background-color: #dce2ba;
