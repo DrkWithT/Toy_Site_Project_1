@@ -2,7 +2,7 @@
 ## CSCI 12 Website Project: "A Poet's Place"
 ## By: Derek Tan
 
-### Sumamry:
+### Summary:
 This is a _tentative_ outline of my final, _toy_ project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or others. There, users can write, post, or manage their work in other ways. The notes below will elaborate the details.
 
 ### General Info:
@@ -34,7 +34,7 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
     - _ssns_: Maps `VARCHARS(255) ssnid` to `VARCHAR(60) username`.
       - The user session ID strings use the PHP `uniqid()` function.
 
-### Webpages:
+### Implementation Notes:
  1. Appearance:
     - The style will be material design with slight to moderate CSS effects for visual appeal.
     - Icons from Font Awesome could be used for custom CSS and JS menus and buttons, but only the free-to-use ones? (MAYBE)
@@ -56,7 +56,7 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
   - Guests and Users: Homepage, Signup, Login
   - Users Only: Logout confirmation page, User page (with links to user utility pages), and a dynamic poem viewing page. Each dynamic poem listing has 5 random poems. User utility pages will be for managing their poems by (re)posting, reading, or deleting.
 
-### Server-Side PHP: (Page Briefs)
+### PHP Scripts or Files: (Page Briefs)
  1. The `util.php` script contains common constants and helper functions used across the other dynamic PHP pages.
  2. The `htmlgen.php` script contains helper functions to generate dynamic html to echo in `works.php` and `poempanel.php`.
  3. The `login.php`, `logout.php`, `register.php` pages all do user sign in, sign out, and sign up with _cookie vs. database_ based authentication. See the code for more details.
