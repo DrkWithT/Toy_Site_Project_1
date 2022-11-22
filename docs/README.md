@@ -5,24 +5,33 @@
 ### General Info:
   - Frontend Languages: HTML, CSS 3, JS
   - Backend Tech: XAMPP with PHP 8.0+
-  - VCS (Local): Git for Windows!
+  - Version Control: Git for Windows
+
+### How to Use:
+ 1. Install _XAMPP_ for your computer.
+ 2. Install the _Visual Studio Code_ editor on your computer.
+ 3. Then, install the _PHP Intelliphense_ and _PHP Server_ extension.
+ 4. Clone this repo to download locally or get this project folder.
+ 5. Run the _XAMPP Control Panel_ as administrator or superuser.
+ 6. Select "Admin" for "mySQL".
+ 7. Using phpMyAdmin on `localhost`, construct a database named `poetplace` with the tables described in Features, section 2.
+ 8. Right click `homepage.html` and select "Serve PHP Project".
 
 ### Sumamry:
-This is a _tentative_ outline of my final project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or sonnets. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
+This is a _tentative_ outline of my final, _toy_ project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or others. There, users can write, post, or manage their work in other ways. The outline below this summary will elaborate the details.
 
 ### Features:
  1. Basic User Authentication:
-    - Creating an account: Needs a username, original password, confirm password, and _maybe_ an email (no 3rd party email verification, as it is beyond this class's scope).
+    - Signup: Needs a username, original password, and confirm a password.
     - Logging In: Needs a valid username and password. Password is at least 12 characters long with uppercase, lowercase, and numeric characters. Punctuation characters are necessary too: `'$', '!', '.'`.
-    - Logging Out: The server-side scripts handle log out requests by clearing session ID cookies for a specific user doing so. A redirect to the homepage occurs anyway.
+    - Logging Out: The server-side scripts handle log out requests by clearing session ID cookies and a session DB entry for a specific user doing so. A redirect to the homepage occurs anyway.
  2. Database for User Data:
-    - _Users_: Maps usernames to password hashes along with some description about themself.
-    - _Poems_: Maps poem ID numbers to data: Title, Author, Text, Date
-    - _Ssns_: Maps session ID cookie values to active user names!
+    - _users_: Maps `VARCHAR(60) username` to `VARCHAR(255) passhash` along with some `VARCHAR(300) userdesc`.
+    - _works_: Maps `INTEGER id` to `VARCHAR(48) title, VARCHAR(60) author, VARCHAR(480) prose`.
+      - The poem ID is `PRIMARY KEY` with `AUTO_INCREMENT`.
+      - Fields here are `NOT NULL`.
+    - _ssns_: Maps `VARCHARS(255) ssnid` to `VARCHAR(60) username`.
       - The user session ID strings use the PHP `uniqid()` function.
- 3. Other:
-    - ~~Users use buttons with hidden AJAX to do actions such as liking a poem.~~ (MAYBE)
-    - Invalid URL GETs result in a special 404 page which links back to the homepage.
 
 ### Webpages:
  1. Appearance:
@@ -46,8 +55,15 @@ This is a _tentative_ outline of my final project for this web programming class
   - Guests and Users: Homepage, Signup, Login
   - Users Only: Logout confirmation page, User page (with links to user utility pages), and a dynamic poem viewing page. Each dynamic poem listing has 5 random poems. User utility pages will be for managing their poems by (re)posting, reading, or deleting.
 
-### Server-Side PHP:
-  - To be specified. I need to learn PHP first. I do know that they will likely interface with an SQL / SQLite3 database on my computer. Also, the site will be tested on `localhost` for demos.
+### Server-Side PHP: (Page Briefs)
+ 1. The `util.php` script contains common constants and helper functions used across the other dynamic PHP pages.
+ 2. The `htmlgen.php` script contains helper functions to generate dynamic html to echo in `works.php` and `poempanel.php`.
+ 3. The `login.php`, `logout.php`, `register.php` pages all do user sign in, sign out, and sign up with _cookie vs. database_ based authentication. See the code for more details.
+ 4. The `user.php` page is a page only visible to logged in users for now. This special page is the landing page for any site member, and it loads username and profile info from a database connection.
+ 5. The `poempanel.php` page contains a special, multi-mode form for creating, updating, or deleting a poem for the logged in user.
+ 6. The `works.php` page contains AJAX to dynamically load or query poems by their specific ID or range of ID numbers.
+ 7. Other:
+  - The PHP will likely interface with the mySQL Server on my computer. Also, the site will be tested on `localhost` for demos.
   - **DONE**: Refactor PHP pages as postbacks!
     - Postbacks are PHP pages that handle their own POST requests with hidden PHP.
-  - **TODO**: more picture decor with _alt_ text!
+  - **WIP**: Add jQuery and vanilla client JS.
