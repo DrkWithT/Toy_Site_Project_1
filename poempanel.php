@@ -63,7 +63,7 @@
 
     // status 1 on SQL connection problem overwrites default code 0!
     if ($con_ok) {
-      $lined_text = str_ireplace("*%0A", "<br>", $clean_text);
+      $lined_text = str_ireplace("*", "<br>", $clean_text);
 
       if (strlen($lined_text) <= 480) { 
         $adding_status = $db_connection->query("INSERT INTO works (title, author, prose) VALUES ('"
@@ -234,7 +234,7 @@
             <div id="text-form">
               <!-- Poem Text -->
               <label class="form-label" for="poem-text">Text</label>
-              <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="48" maxlength="480" rows="12" cols="20" required></textarea>
+              <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="24" maxlength="480" rows="12" cols="20" required></textarea>
             </div>
             <div id="poem-id-form">
               <!-- Poem ID Number (todo!) -->
