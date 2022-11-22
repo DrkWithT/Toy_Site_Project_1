@@ -11,6 +11,9 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
   - Version Control: Git for Windows
   - TIP: In _Visual Studio Code_, right click this file's editor tab and select "Open Preview".
 
+### CODE SIZE:
+~1577 lines, including blank lines and comments. Git files and README excluded.
+
 ### How to Use:
  1. Install _XAMPP_ for your computer.
  2. Then install the _Visual Studio Code_ editor on your computer.
