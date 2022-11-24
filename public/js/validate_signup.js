@@ -4,21 +4,6 @@
  * @author Derek Tan
  */
 
-/** @description HTML id for signup form. */
-const REG_FORM_CLASS = 'register-form';
-
-/** @description Username input id. */
-const UNAME_INPUT_ID = 'username-field';
-
-/** @description 1st password input id. */
-const PW_FIRST_INPUT_ID = 'password-field';
-
-/** @description Password confirmation input id. */
-const PW_CONFIRM_INPUT_ID = 'pwconfirm-field';
-
-/** @description DOM id for the signup form's validation message. */
-const FORM_MSG_ID = 'form-msg';
-
 /**
  * @constant CHECK_TABLE
  * @type {Object<string, RegExp[]>}
@@ -64,24 +49,20 @@ function testValueOf(fieldValue, fieldNaming) {
  * The listeners store closures with this IIFE's important variables, while not exposing important variables to console.
  */
 (function () {
-  /// DOM Variables:
-
   /** @type {HTMLFormElement} */
-  let FormDOM = document.querySelector(`#${REG_FORM_CLASS}`);
+  let FormDOM = document.querySelector('#register-form');
 
   /** @type {HTMLInputElement} */
-  let usernameField = document.querySelector(`#${UNAME_INPUT_ID}`);
+  let usernameField = document.querySelector('#username-field');
 
   /** @type {HTMLInputElement} */
-  let passwordField = document.querySelector(`#${PW_FIRST_INPUT_ID}`);
+  let passwordField = document.querySelector('#password-field');
 
   /** @type {HTMLInputElement} */
-  let pwConfirmField = document.querySelector(`#${PW_CONFIRM_INPUT_ID}`);
+  let pwConfirmField = document.querySelector('#pwconfirm-field');
 
   /** @type {HTMLParagraphElement} */
-  let formMsgPar = document.querySelector(`#${FORM_MSG_ID}`);
-
-  /// Listeners:
+  let formMsgPar = document.querySelector('#form-msg');
 
   FormDOM.addEventListener('submit', (submitEvent) => {
     let hasEmptyForm = usernameField.value.length === 0 && passwordField.value.length === 0;
@@ -107,6 +88,4 @@ function testValueOf(fieldValue, fieldNaming) {
       submitEvent.preventDefault();
     }
   });
-
-  // todo: add more listeners?
 })();
