@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
           </form>
           <?php
-            switch ($login_status) {
+            switch ($banner_msg_code) {
               case 1:
                 echo "<p>Unable to authenticate.</p>";
                 break;
@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 echo "<p>Invalid login data!</p>";
                 break;
               default:
-                echo "<p>Unknown Error!</p>";
+                echo "<p>Enter inputs.</p>";
                 break;
             }
           ?>
