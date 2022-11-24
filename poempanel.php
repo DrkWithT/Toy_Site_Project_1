@@ -217,14 +217,14 @@
             This is the place to post or delete a poem. If you post, a poem must be titled and at least 48 characters long. Also, separate lines must be ended by <code>*</code>.
           </p>
           <form id="post-form" class="page-form" action="/poempanel.php" method="POST">
-            <div id="poem-action-form">
+            <div id="action-form">
               <!-- Poem Panel Action -->
               <label class="form-label" for="poem-nop">None</label>
-              <input id="poem-nop" type="radio" name="action" value="nop">
+              <input id="poem-nop" class="radio-input" type="radio" name="action" value="nop">
               <label class="form-label" for="poem-add">Publish</label>
-              <input id="poem-add" type="radio" name="action" value="publish">
+              <input id="poem-add" class="radio-input" type="radio" name="action" value="publish">
               <label class="form-label" for="poem-del" value="publish">Delete</label>
-              <input id="poem-del" type="radio" name="action" value="delete">
+              <input id="poem-del" class="radio-input" type="radio" name="action" value="delete">
             </div>
             <div id="title-form">
               <!-- Poem Title -->
@@ -236,8 +236,8 @@
               <label class="form-label" for="poem-text">Text</label>
               <textarea id="poem-text" class="form-text" name="text" placeholder="Text here" minlength="24" maxlength="480" rows="12" cols="20" required></textarea>
             </div>
-            <div id="poem-id-form">
-              <!-- Poem ID Number (todo!) -->
+            <div id="id-form">
+              <!-- Poem ID Number -->
               <label class="form-label" for="poem-id">Poem ID</label>
               <input id="poem-id" class="form-field" name="pid" type="number" min="0">
             </div>
@@ -274,6 +274,7 @@
     </section>
   </main>
   <!-- JS -->
-  <script src="./public/js/jquery-3.6.1.min.js"></script>
+  <script src="./public/js/panel_form.js"></script>
+  <!-- <script src="./public/js/jquery-3.6.1.min.js"></script> -->
 </body>
 </html>
