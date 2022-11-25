@@ -4,12 +4,13 @@
   Derek Tan 
 */
 
+/* works.php styling */
 div#work-panels {
   display: grid;
   grid-template-columns: auto auto;
   gap: 8px;
   padding: 8px 4px;
-  border-top: 2px solid #c0d6a7;
+  border-top: 2px solid #adc591;
 }
 
 div.work-section {
@@ -21,11 +22,11 @@ div.work-section {
   border-left-color: #dce2ba;
   background-color: #dce2ba;
   color: inherit;
-  transition: border-left-color 0.25s;
+  transition: border-left-color 0.25s; /* for emphasis of a poem post */
 }
 
 div.work-section:hover {
-  border-left-color: #c0d6a7;
+  border-left-color: #adc591;
 }
 
 p.work-content {
@@ -33,4 +34,35 @@ p.work-content {
   margin: 0;
   padding: 8px 4px;
   color: inherit;
+}
+
+/* poempanel.php styling */
+ul#usr-work-list {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  padding: 0;
+  background-color: #dce2ba;
+  list-style: none;
+}
+
+@keyframes sidepop {
+  0% { left: 0; }
+  50% { left: calc(8px + 1.25%); }
+  100% { left: 0; }
+}
+
+li.work-brief {
+  position: relative;
+  left: 0;
+  display: block;
+  padding: 8px;
+  background-color: #c0d6a7;
+  color: inherit;
+}
+
+li.work-brief:hover {
+  animation-name: sidepop;
+  animation-delay: 0.5s;
+  animation-duration: 0.5s;
 }

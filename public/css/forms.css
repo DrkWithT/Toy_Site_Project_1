@@ -68,6 +68,10 @@ input#submit-btn:hover {
   color: rgb(50, 45, 45);
 }
 
+input:focus {
+  outline: none;
+}
+
 /* Form Validation Msg Styling */
 p.banner {
   display: block;
