@@ -2,6 +2,8 @@
 ## CSCI 12 Website Project: "A Poet's Place"
 ## By: Derek Tan
 
+<img src="./pics/Read_Page_Pic1.jpg" alt="Demo Screenshot" title="Reading Page" width="200"/>
+
 ### Summary:
 This is a _tentative_ outline of my final, _toy_ project for this web programming class. For this final project that I will eventually complete and present, I plan to create a basic writing website for posting small poems like haikus or others. There, users can write, post, or manage their work in other ways. The notes below will elaborate the details.
 
