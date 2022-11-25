@@ -32,11 +32,13 @@
   function disableSome(disabled_indexes) {
     // enable all temporarily...
     INPUT_LIST.forEach((inputElement) => {
+      inputElement.setAttribute('required', 'true');
       inputElement.removeAttribute('disabled');
     });
 
     // disable all inputs in the list that are on a DISABLER_MAP entry!
     disabled_indexes.forEach((index) => {
+      INPUT_LIST[index].removeAttribute('required');
       INPUT_LIST[index].setAttribute('disabled', 'true');
     });
   }
