@@ -11,8 +11,10 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
   - Version Control: Git for Windows
   - TIP: In _Visual Studio Code_, right click this file's editor tab and select "Open Preview".
 
-### CODE SIZE:
-~1577 lines, including blank lines and comments. Git files and README excluded.
+### CODE:
+ - `1500+` lines, including blank lines and comments. Git files and README excluded.
+ - Should be simple, modular, and working.
+ - Documentation used.
 
 ### How to Use:
  1. Install _XAMPP_ for your computer.
@@ -60,8 +62,8 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
   - Users Only: Logout confirmation page, User page (with links to user utility pages), and a dynamic poem viewing page. Each dynamic poem listing has 5 random poems. User utility pages will be for managing their poems by (re)posting, reading, or deleting.
 
 ### PHP Scripts or Files: (Page Briefs)
- 1. The `util.php` script contains common constants and helper functions used across the other dynamic PHP pages.
- 2. The `htmlgen.php` script contains helper functions to generate dynamic html to echo in `works.php` and `poempanel.php`.
+ 1. The `./utils/util.php` script contains common constants and helper functions used across the other dynamic PHP pages.
+ 2. The `./utils/htmlgen.php` script contains helper functions to generate dynamic html to echo in `works.php` and `poempanel.php`.
  3. The `login.php`, `logout.php`, `register.php` pages all do user sign in, sign out, and sign up with _cookie vs. database_ based authentication. See the code for more details.
  4. The `user.php` page is a page only visible to logged in users for now. This special page is the landing page for any site member, and it loads username and profile info from a database connection.
  5. The `poempanel.php` page contains a special, multi-mode form for creating, updating, or deleting a poem for the logged in user.
@@ -69,5 +71,4 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
  7. Other:
   - The PHP will likely interface with the mySQL Server on my computer. Also, the site will be tested on `localhost` for demos.
   - **DONE**: Refactor PHP pages as postbacks!
-    - Postbacks are PHP pages that handle their own POST requests with hidden PHP.
-  - **WIP**: Add jQuery and vanilla client JS.
+  - **WIP**: Add vanilla client JS.
