@@ -10,14 +10,16 @@
  */
 (function () {
   const FormDOM = document.querySelector('#post-form');
+  /** @type {HTMLDivElement} */
   let FormAction = FormDOM.querySelector('#action-form');
-  let TitleInput = FormDOM.querySelector('input#poem-title');
-  let TextInput = FormDOM.querySelector('input#poem-text');
-  let IDInput = FormDOM.querySelector('input#poem-id');
-  let SubmitInput = FormDOM.querySelector('input#submit-btn');
+  let TitleInput = FormDOM.querySelector('#poem-title');
+  let TextInput = FormDOM.querySelector('#poem-text');
+  let IDInput = FormDOM.querySelector('#poem-id');
+  let SubmitInput = FormDOM.querySelector('#submit-btn');
 
   /** @description A list of all Form DOM objects. Used to track what to disable / enable. */
-  const INPUT_LIST = [TitleInput, TextInput, IDInput, SubmitInput];
+  let INPUT_LIST = [];
+  INPUT_LIST.push(TitleInput, TextInput, IDInput, SubmitInput);
 
   /** @description Maps selected action radio btn. to what sub-forms to disable in INPUT_LIST. */
   const DISABLER_MAP = {
@@ -34,7 +36,7 @@
     INPUT_LIST.forEach((inputElement) => {
       inputElement.setAttribute('required', 'true');
       inputElement.removeAttribute('disabled');
-    });
+    }, this);
 
     // disable all inputs in the list that are on a DISABLER_MAP entry!
     disabled_indexes.forEach((index) => {
@@ -46,7 +48,7 @@
   FormAction.addEventListener('click', (mouseEvent) => {
     // fetch radio button action, defaults as 'nil'
     let targetAction = mouseEvent.target.getAttribute('value') || 'nil';
-  
+
     if (targetAction == 'nil') {
       mouseEvent.preventDefault();
       return;
@@ -54,4 +56,6 @@
 
     disableSome(DISABLER_MAP[targetAction]);
   });
-});
+
+  console.log('Loaded form script.');
+})();

@@ -88,4 +88,6 @@ function testValueOf(fieldValue, fieldNaming) {
       submitEvent.preventDefault();
     }
   });
+
+  console.log('Loaded form script.');
 })();
