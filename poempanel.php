@@ -22,11 +22,11 @@
    * Fetches a 2-d associative array of brief poem data: (ID, title).
    * @param mysqli &$db_connection Reference to external SQL connection.
    * @param string $ssn_uname Session's user by name.
-   * @return array A possibly `NULL` associative array like this:
+   * @return array A numeric keyed, 2D array.
    * ```
    * $results = [
-   *    ["id" => 0, "title" => "Ode To PHP"],
-   *    ["id" => 1, "title" => "Tuned Broadcasts"]
+   *    ["<id>", "Ode To PHP"],
+   *    ["<id>", "Tuned Broadcasts"]
    * ];
    * ```
    */
