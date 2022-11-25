@@ -7,6 +7,11 @@
 
 require "./utils/util.php";
 
+use function Util\matchSessionID;
+use function Util\redirectToPage;
+use function Util\sanitizeText;
+use function Util\createSession;
+
 $banner_msg_code = 0; // Shared Var: code for diplaying login status in page HTML.
 
 /**
@@ -26,7 +31,7 @@ function checkLogin(&$db_con, $uname, $pword) {
   if ($db_con->connect_errno == 0) {
     $query_result = $db_con->query("SELECT * FROM users WHERE username = '" . $uname . "'");
   } else {
-    $status = 1; // when connect error code is set, it will not be overwritten!
+    $status = 1; // do not overwrite first error code
   }
 
   // Get query row only if connection is okay.
@@ -54,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // check if user is already logged on for a redirect home
   if (isset($_COOKIE['ssnID'])) {
-    if (Util\matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
-      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+    if (matchSessionID($db_con, $_COOKIE['ssnID']) != "none") {
+      redirectToPage(Util\SERVER_HOST_STR, "user.php");
       $db_con->close();
       exit(0);
     }
@@ -64,14 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $raw_username = $_POST['username'];
   $raw_password = $_POST['password'];
 
-  $clean_username = $db_con->real_escape_string(Util\sanitizeText($raw_username));
-  $clean_password = $db_con->real_escape_string(Util\sanitizeText($raw_password));
+  $clean_username = $db_con->real_escape_string(sanitizeText($raw_username));
+  $clean_password = $db_con->real_escape_string(sanitizeText($raw_password));
 
   // authenticate user based on their login info
   $login_status = checkLogin($db_con, $clean_username, $clean_password);
 
   if ($login_status == 0) {
-    $recorded_ssn = Util\createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
+    $recorded_ssn = createSession($db_con, $clean_username, uniqid(Util\UNIQID_PREFIX));
 
     if (!$recorded_ssn) {
       $login_status = 1; // an invalid ssn ID means an auth failure!
@@ -88,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $banner_msg_code = $login_status;
       break;
     default:
-      Util\redirectToPage(Util\SERVER_HOST_STR, "user.php");
+      redirectToPage(Util\SERVER_HOST_STR, "user.php");
       break;
   }
 }
