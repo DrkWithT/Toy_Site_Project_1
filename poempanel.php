@@ -161,10 +161,26 @@
 
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // get form data
-    $panel_action = $_POST['action'];
-    $cleaned_title = sanitizeText($_POST['title']);
-    $cleaned_text = sanitizeText($_POST['text']);
-    $cleaned_id = $_POST['pid'];
+    $panel_action = "nop";
+    $cleaned_title = NULL;
+    $cleaned_text = NULL;
+    $cleaned_id = 0;
+
+    if (isset($_POST['action'])) {
+      $panel_action = $_POST['action'];
+    }
+
+    if (isset($_POST['title'])) {
+      $cleaned_title = sanitizeText($_POST['title']);
+    }
+
+    if (isset($_POST['text'])) {
+      $cleaned_text = sanitizeText($_POST['text']);
+    }
+    
+    if (isset($_POST['pid'])) {
+      $cleaned_id = $_POST['pid'];
+    }
 
     // execute user panel action
     if (strcmp($panel_action, "publish") == 0) {
@@ -187,6 +203,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
+  <link href="./public/css/works.css" rel="stylesheet">
   <title>A Poet's Place - Poem Panel</title>
 </head>
 <body>
@@ -253,7 +270,7 @@
     </section>
     <section class="description-section">
       <h3 id="list-area" class="section-heading">Your Works</h3>
-      <ul>
+      <ul id="usr-work-list">
         <?php
           /* Note: Works by this session's user echo here. */ 
           if ($usr_work_list != NULL) {
@@ -262,10 +279,10 @@
                 echo printPoemLI($current_work[0], $current_work[1]);
               }
             } else {
-              echo "<li>Nothing written yet!</li>";
+              echo "<li class=\"work-brief\">Nothing written yet!</li>";
             }
           } else {
-            echo "<li>Nothing found!</li>";
+            echo "<li class=\"work-brief\">Nothing found!</li>";
           }
         ?>
       </ul>
