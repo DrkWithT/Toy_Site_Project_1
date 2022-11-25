@@ -33,13 +33,12 @@
   function handlePoemGets(&$db_connection, $ssn_uname) {
     $results = NULL;
 
-    $con_ok = $db_connection->connect_errno == 0; // check connection
-    $fetch_result = TRUE;
-
-    if ($con_ok) {
-      $fetch_result = $db_connection->query("SELECT id, title FROM works WHERE author='" . $ssn_uname . "'");
+    if ($db_connection->connect_errno != 0) {
+      return $results;
     }
-
+    
+    $fetch_result = $db_connection->query("SELECT id, title FROM works WHERE author='" . $ssn_uname . "'");
+    
     if ($fetch_result != FALSE) {
       $results = $fetch_result->fetch_all(MYSQLI_NUM);
     }
@@ -58,24 +57,23 @@
   function handlePoemAdd(&$db_connection, $ssn_uname, $clean_title, $clean_text) {
     $status_code = 0;
 
-    $con_ok = $db_connection->connect_errno == 0;
-    $adding_status = FALSE;
+    $lined_text = str_ireplace("*", "<br>", $clean_text);
 
-    // status 1 on SQL connection problem overwrites default code 0!
-    if ($con_ok) {
-      $lined_text = str_ireplace("*", "<br>", $clean_text);
-
-      if (strlen($lined_text) <= 480) { 
-        $adding_status = $db_connection->query("INSERT INTO works (title, author, prose) VALUES ('"
-        . $clean_title . "', '" . $ssn_uname . "', '" . $lined_text . "')"); // id is omitted since it's auto incremented!
-      }
-    } else {
-      $status_code = 1;
+    if (strlen($lined_text) > 480) { 
+      $status_code = 1; // invalid input code
+      return $status_code;
     }
 
-    // status 2 on query failure, do not overwrite prior error 1!
-    if (!$adding_status && $status_code != 1) {
-      $status_code = 2;
+    if ($db_connection->connect_errno != 0) {
+      $status_code = 2; // connection failure code
+      return $status_code;
+    }
+
+    $adding_status = $db_connection->query("INSERT INTO works (title, author, prose) VALUES ('"
+      . $clean_title . "', '" . $ssn_uname . "', '" . $lined_text . "')"); // id is omitted since it's auto incremented!
+
+    if (!$adding_status) {
+      $status_code = 3; // SQL operation failure code
     }
 
     return $status_code;
@@ -91,27 +89,50 @@
   function handlePoemDel(&$db_connection, $ssn_uname, $target_poem_id) {
     $status_code = 0;
 
-    $arg_ok = $target_poem_id > 0;
-    $con_ok = $db_connection->errno == 0;
-    $delete_status = TRUE;
-
     // NOTE: validate parameter in case of user forced garbage input!
-    if (!$arg_ok) {
-      $status_code = -1;
+    if ($target_poem_id <= 0) {
+      $status_code = 1;
       return $status_code;
     }
 
-    if ($con_ok) {
-      $delete_status = $db_connection->query("DELETE FROM works WHERE id=" . $target_poem_id . " AND author='" . $ssn_uname . "'");
-    } else {
-      $status_code = 1;
+    if ($db_connection->connect_errno != 0) {
+      $status_code = 2;
+      return $status_code;
     }
 
-    if (!$delete_status && $status_code != 1) {
-      $status_code = 2;
+    $delete_status = $db_connection->query("DELETE FROM works WHERE id=" . $target_poem_id . " AND author='" . $ssn_uname . "'");
+
+    if (!$delete_status) {
+      $status_code = 3;
     }
 
     return $status_code;
+  }
+
+  /**
+   * Helper function for printing poem panel status messages.
+   * @param int $msg_code
+   */
+  function putBannerMsg($ext_msg_code) {
+    switch ($ext_msg_code) {
+      case 0:
+        echo "<h4 id=\"error-banner\">Success!</h4>";
+        break;
+      case 1:
+        echo "<h4 id=\"error-banner\">Invalid inputs.</h4>";
+        break;
+      case 2:
+        echo "<h4 id=\"error-banner\">The database is unreachable.</h4>";
+        break;
+      case 3:
+        echo "<h4 id=\"error-banner\">We had a database problem.</h4>";
+        break;
+      case 4:
+        echo "<h4 id=\"error-banner\">Invalid app action.</h4>";
+        break;
+      default:
+        break;
+    }
   }
 
   /* Postback */
@@ -151,7 +172,7 @@
     } else if (strcmp($panel_action, "delete") == 0) {
       $msg_code = handlePoemDel($db_con, $ssn_usr_name, $cleaned_id);
     } else {
-      $msg_code = 3;
+      $msg_code = 4;
     }
   }
 
@@ -171,28 +192,7 @@
 <body>
   <header>
     <h1 id="site-title">A Poet's Place</h1>
-    <?php
-      /* Note: Any reported backend msg echoes here. */
-      switch ($msg_code) {
-        case -1:
-          echo "<h4 id=\"error-banner\">Err: Invalid inputs.</h4>";
-          break;
-        case 0:
-          echo "<h4 id=\"error-banner\">Load successful!</h4>";
-          break;
-        case 1:
-          echo "<h4 id=\"error-banner\">Err: The database is unreachable.</h4>";
-          break;
-        case 2:
-          echo "<h4 id=\"error-banner\">Err: We had a database problem.</h4>";
-          break;
-        case 3:
-          echo "<h4 id=\"error-banner\">Err: Invalid app action.</h4>";
-          break;
-        default:
-          break;
-      }
-    ?>
+    <?php putBannerMsg($msg_code); ?>
     <nav>
       <a class="nav-link" href="/user.php">User</a>
       <a class="nav-link" href="/works.php">Read</a>
