@@ -257,9 +257,7 @@
         <?php
           /* Note: Works by this session's user echo here. */ 
           if ($usr_work_list != NULL) {
-            $works_count = count($usr_work_list);
-
-            if ($works_count > 0) {
+            if (count($usr_work_list) > 0) {
               foreach($usr_work_list as $key => $current_work) {
                 echo printPoemLI($current_work[0], $current_work[1]);
               }
@@ -275,6 +273,5 @@
   </main>
   <!-- JS -->
   <script src="./public/js/panel_form.js"></script>
-  <!-- <script src="./public/js/jquery-3.6.1.min.js"></script> -->
 </body>
 </html>
