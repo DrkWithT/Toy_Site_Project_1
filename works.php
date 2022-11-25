@@ -25,16 +25,17 @@
   function handlePoemSearch(&$db_connection, $start, $end) {
     $result = [];
 
-    $con_ok = $db_connection->connect_errno == 0;
-    $query_raw_data = NULL;
-
-    if ($con_ok) {
-      $query_raw_data = $db_connection->query("SELECT title, author, prose FROM works WHERE id >= " . $start . " AND " . "id <= " . $end);
+    if ($db_connection->connect_errno != 0) {
+      return $result;
+    }
+    
+    $query_raw_data = $db_connection->query("SELECT title, author, prose FROM works WHERE id >= " . $start . " AND " . "id <= " . $end);
+    
+    if ($query_raw_data->num_rows <= 0) {
+      return $result;
     }
 
-    if ($query_raw_data != NULL) {
-      $result = $query_raw_data->fetch_all(MYSQLI_NUM);
-    }
+    $result = $query_raw_data->fetch_all(MYSQLI_NUM);
 
     return $result;
   }
@@ -93,12 +94,11 @@
         <div>
           <!-- Dynamic Username Heading -->
           <h3 class="section-heading">
-            Reading&nbsp;As&nbsp;
             <?php
               if (strcmp($ssn_usr_name, "none") != 0) {
-                echo $ssn_usr_name;
+                echo "Reading as {$ssn_usr_name}";
               } else {
-                echo "Anonymous";
+                echo "Reading as Anonymous";
               }
             ?>
           </h3>
@@ -108,7 +108,7 @@
           <!-- Search Form -->
           <form method="GET" action="works.php">
             <label class="form-label" for="poem-id-field">Start ID</label>
-            <input id="poem-id-field" class="form-field" name="startid" type="number" min="0" value="0">
+            <input id="poem-id-field" class="form-field" name="startid" type="number" min="1" value="1">
             <input id="submit-btn" type="submit" value="Search">
           </form>
         </div>
@@ -128,7 +128,7 @@
                 echo printPoemDiv($poem_data[0], $poem_data[1] , $poem_data[2]);
               }
             } else {
-              "<p>No results!</p>";
+              "<p>Nothing found!</p>";
             }
           } else {
             echo "<p>No results!</p>";
