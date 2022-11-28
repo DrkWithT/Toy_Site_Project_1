@@ -9,13 +9,12 @@ div#work-panels {
   display: grid;
   grid-template-columns: auto auto;
   gap: 8px;
-  padding: 8px 4px;
+  padding: 8px 0;
   border-top: 2px solid #adc591;
 }
 
 div.work-section {
   display: block;
-  margin: 8px;
   padding: 4px;
   border-left-width: 4px;
   border-left-style: solid;
