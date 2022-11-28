@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
+  <!-- Icon -->
+  <link rel="shortcut icon" href="./public/img/favicon.ico" type="image/x-icon">
   <title>A Poet's Place - Logout</title>
 </head>
 

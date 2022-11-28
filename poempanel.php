@@ -204,6 +204,8 @@
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
   <link href="./public/css/works.css" rel="stylesheet">
+  <!-- Icon -->
+  <link rel="shortcut icon" href="./public/img/favicon.ico" type="image/x-icon">
   <title>A Poet's Place - Poem Panel</title>
 </head>
 <body>

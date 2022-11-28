@@ -108,6 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <!-- CSS -->
   <link href="./public/css/index.css" rel="stylesheet">
   <link href="./public/css/forms.css" rel="stylesheet">
+  <!-- Icon -->
+  <link rel="shortcut icon" href="./public/img/favicon.ico" type="image/x-icon">
   <title>A Poet's Place - Login</title>
 </head>
 <body>
