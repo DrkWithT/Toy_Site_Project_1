@@ -162,8 +162,8 @@
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // get form data
     $panel_action = "nop";
-    $cleaned_title = NULL;
-    $cleaned_text = NULL;
+    $cleaned_title = "New Work";
+    $cleaned_text = "Filler text.";
     $cleaned_id = 0;
 
     if (isset($_POST['action'])) {
