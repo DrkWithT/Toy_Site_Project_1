@@ -14,18 +14,20 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
   - TIP: In _Visual Studio Code_, right click this file's editor tab and select "Open Preview".
 
 ### CODE:
- - `1500+` lines, including blank lines and comments. Git files and README excluded.
+ - `~1500+` lines, including blank lines and comments. The `.gitignore`, `.gitattributes`, and README are excluded.
  - Should be simple, modular, and working.
- - Documentation used.
+ - Documentation used for programming and testing.
 
 ### How to Use:
  1. Install _XAMPP_ for your computer.
  2. Then install the _Visual Studio Code_ editor on your computer.
- 3. After installing VSCode, install the _PHP Intelliphense_ and _PHP Server_ editor extension.
+    - This is the preferred editor because it has powerful code hints, good extensions, and Git support out of the box.
+ 3. After installing VSCode, install the _PHP Intelliphense_ and _PHP Server_ editor extensions.
  4. Clone this repo to download locally. Or get this project folder as a zip to unzip later.
  5. Run the _XAMPP Control Panel_ as administrator or superuser.
  6. Select "Admin" for "mySQL".
  7. Using "phpMyAdmin" on `localhost`, construct a database named `poetplace` with the tables described in Features Part 2.
+    - Note: This requires you to create a mySQL account named _HelperUser1_ with the password. (See `login.php: (line 64)`!)
  8. Open the project folder in the editor. Right click `homepage.html` and select "Serve PHP Project".
 
 ### Features:
@@ -69,8 +71,8 @@ This is a _tentative_ outline of my final, _toy_ project for this web programmin
  3. The `login.php`, `logout.php`, `register.php` pages all do user sign in, sign out, and sign up with _cookie vs. database_ based authentication. See the code for more details.
  4. The `user.php` page is a page only visible to logged in users for now. This special page is the landing page for any site member, and it loads username and profile info from a database connection.
  5. The `poempanel.php` page contains a special, multi-mode form for creating, updating, or deleting a poem for the logged in user.
- 6. The `works.php` page contains AJAX to dynamically load or query poems by their specific ID or range of ID numbers.
+ 6. The `works.php` page contains a form to dynamically query 5 poems by a started range of ID numbers.
  7. Other:
   - The PHP will likely interface with the mySQL Server on my computer. Also, the site will be tested on `localhost` for demos.
   - **DONE**: Refactor PHP pages as postbacks!
-  - **WIP**: Add vanilla client JS.
+  - **DONE**: Add vanilla client JS.
