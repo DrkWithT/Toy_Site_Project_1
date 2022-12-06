@@ -281,10 +281,10 @@
                 echo printPoemLI($current_work[0], $current_work[1]);
               }
             } else {
-              echo "<li class=\"work-brief\">Nothing written yet!</li>";
+              echo "<li class=\"work-brief\">Nothing written.</li>";
             }
           } else {
-            echo "<li class=\"work-brief\">Nothing found!</li>";
+            echo "<li class=\"work-brief\">Could not load!</li>";
           }
         ?>
       </ul>

@@ -130,10 +130,10 @@
                 echo printPoemDiv($poem_data[0], $poem_data[1] , $poem_data[2]);
               }
             } else {
-              "<p>Nothing found!</p>";
+              "<p>Nothing written!</p>";
             }
           } else {
-            echo "<p>No results!</p>";
+            echo "<p>Could not fetch results!</p>";
           }
         ?>
       </div>
